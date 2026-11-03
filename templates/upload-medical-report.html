@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2162d5">
+  <title>Medical Reports | AI Healthcare Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --blue:#2162d5; --blue-dark:#154db8; --ink:#182846; --muted:#74819a;
+      --border:#e3eaf4; --surface:#fff; --canvas:#f5f8fc; --red:#e44747;
+      --shadow:0 8px 24px rgba(35,65,112,.055);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:#eef2f7; font-size:13px; }
+    button,input { font:inherit; }
+    a { color:inherit; text-decoration:none; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    button { cursor:pointer; }
+    .app-shell { display:flex; width:min(1600px,100%); min-height:100vh; margin:0 auto; background:var(--canvas); }
+    .sidebar { width:224px; flex:0 0 224px; min-height:100vh; padding:22px 13px 17px; color:#fff; background:linear-gradient(180deg,#1d5dd1 0%,#3074e2 100%); display:flex; flex-direction:column; }
+    .brand { display:flex; align-items:center; gap:10px; padding:0 9px 23px; }
+    .brand-mark { width:35px; height:35px; flex:0 0 auto; border-radius:12px; background:rgba(255,255,255,.17); display:grid; place-items:center; font-size:23px; }
+    .brand-title { font-size:15px; font-weight:800; letter-spacing:-.4px; line-height:1.25; }
+    .brand-subtitle { margin-top:3px; font-size:11px; color:rgba(255,255,255,.76); }
+    .nav-label { padding:8px 12px 7px; font-size:10px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase; color:rgba(255,255,255,.62); }
+    .nav-list { display:grid; gap:4px; }
+    .nav-link { min-height:38px; display:flex; align-items:center; gap:11px; padding:9px 12px; border-radius:9px; font-size:12px; font-weight:500; color:rgba(255,255,255,.9); transition:background .18s,color .18s,transform .18s; }
+    .nav-link i { width:16px; text-align:center; font-size:15px; }
+    .nav-link:hover { background:rgba(255,255,255,.13); transform:translateX(2px); }
+    .nav-link.active { background:#fff; color:var(--blue); box-shadow:0 4px 13px rgba(11,42,100,.12); font-weight:700; }
+    .nav-divider { height:1px; margin:13px 7px 11px; background:rgba(255,255,255,.2); }
+    .sidebar-spacer { flex:1; min-height:20px; }
+    .emergency-mini { margin:13px 6px 0; padding:14px 13px; border:1px solid rgba(255,255,255,.24); border-radius:14px; background:rgba(255,255,255,.10); }
+    .mini-heading { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; }
+    .mini-call-icon { width:27px; height:27px; display:grid; place-items:center; border-radius:50%; background:#f34e51; font-size:13px; }
+    .mini-number { display:block; margin:12px 0 3px; font-size:27px; font-weight:800; letter-spacing:-.8px; text-align:center; }
+    .mini-caption { color:rgba(255,255,255,.82); font-size:10px; text-align:center; }
+    .btn-light-sidebar { display:flex; justify-content:center; align-items:center; gap:7px; width:100%; margin-top:12px; padding:9px 8px; color:#2d5ba8; background:#eef5ff; border-radius:7px; font-size:10px; font-weight:700; }
+    .sidebar-footer { padding:16px 11px 0; color:rgba(255,255,255,.65); font-size:10px; text-align:center; }
+    .main { min-width:0; flex:1; }
+    .topbar { min-height:70px; padding:13px 27px; display:flex; align-items:center; gap:19px; background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20; }
+    .mobile-menu { display:none; width:35px; height:35px; border:1px solid var(--border); border-radius:9px; background:#fff; color:var(--ink); }
+    .search-wrap { width:min(470px,55%); position:relative; }
+    .search-wrap>i { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:#8390a7; font-size:14px; }
+    .search-input { width:100%; padding:11px 14px 11px 36px; outline:none; border:1px solid #e1e8f3; border-radius:9px; background:#fbfcfe; font-size:11px; color:var(--ink); }
+    .search-input:focus { border-color:#91b5f4; box-shadow:0 0 0 3px rgba(33,98,213,.08); }
+    .topbar-spacer { flex:1; }
+    .icon-button { position:relative; display:grid; place-items:center; width:35px; height:35px; color:#5d6b84; background:#fff; border:0; border-radius:10px; font-size:17px; }
+    .icon-button:hover { background:#f0f5fd; }
+    .avatar { flex:0 0 auto; width:36px; height:36px; display:grid; place-items:center; border-radius:50%; color:#2158ae; background:linear-gradient(135deg,#d9e9ff,#b7d0f8); font-size:13px; font-weight:800; }
+    .user-menu { display:flex; align-items:center; gap:9px; border:0; padding:3px 0 3px 5px; background:transparent; color:var(--ink); text-align:left; }
+    .user-name { font-size:11px; font-weight:700; white-space:nowrap; }
+    .user-role { margin-top:3px; color:var(--muted); font-size:10px; }
+    .content { padding:24px 27px 32px; max-width:1200px; margin:0 auto; }
+    .welcome-row { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:20px; }
+    h1 { margin:0; font-size:21px; font-weight:800; letter-spacing:-.55px; }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:12px; line-height:1.6; }
+    .crumb { display:flex; align-items:center; gap:8px; color:#7c8aa0; font-size:11px; margin-bottom:9px; }
+    .crumb a { color:var(--blue); font-weight:600; }
+    .badge { display:inline-flex; align-items:center; gap:6px; border-radius:20px; padding:8px 11px; color:#236b4a; background:#e6f7ee; font-size:10px; font-weight:700; white-space:nowrap; }
+    .panel { min-width:0; padding:21px; background:#fff; border:1px solid var(--border); border-radius:15px; box-shadow:0 3px 10px rgba(28,58,105,.018); margin-bottom:17px; }
+    .panel-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    h2 { margin:0; font-size:14px; font-weight:800; }
+    .panel-desc { margin:6px 0 17px; color:var(--muted); font-size:11px; line-height:1.6; }
+    .upload-layout { display:grid; grid-template-columns:minmax(0,1fr) 230px; gap:18px; align-items:stretch; }
+    .upload-form-area { min-width:0; }
+    label { display:block; font-weight:700; margin:14px 0 7px; font-size:11px; }
+    input[type=text],input[type=file] { width:100%; padding:12px; border:1px solid #ced7e4; border-radius:9px; background:#fff; color:var(--ink); }
+    input[type=text]:focus,input[type=file]:focus { outline:2px solid rgba(33,98,213,.15); border-color:#8ab1f4; }
+    input[type=file] { font-size:11px; }
+    .btn { display:inline-flex; justify-content:center; align-items:center; gap:8px; border:0; border-radius:8px; padding:11px 15px; font-size:11px; font-weight:700; transition:filter .15s,transform .15s; }
+    .btn:hover { filter:brightness(.97); transform:translateY(-1px); }
+    .btn-primary { color:#fff; background:var(--blue); }
+    .btn-primary:disabled { opacity:.6; cursor:progress; transform:none; }
+    .btn-danger { color:#fff; background:#b42318; }
+    .btn-outline { color:#245eb9; background:#edf4ff; }
+    .status { margin-top:11px; min-height:20px; white-space:pre-wrap; color:#42516a; font-size:11px; line-height:1.5; }
+    .upload-help { padding:17px; border-radius:12px; background:#f4f8ff; border:1px solid #e3edff; }
+    .upload-icon { width:46px; height:46px; display:grid; place-items:center; border-radius:13px; background:#e0ecff; color:#2869cf; font-size:22px; margin-bottom:12px; }
+    .upload-help h3 { margin:0 0 7px; font-size:12px; }
+    .upload-help p { color:#6c7a90; font-size:10px; line-height:1.6; margin:0 0 11px; }
+    .help-item { display:flex; align-items:flex-start; gap:8px; margin-top:10px; color:#586984; font-size:10px; line-height:1.5; }
+    .help-item i { color:#24865b; font-size:13px; margin-top:1px; }
+    .notice { display:flex; align-items:flex-start; gap:8px; margin-top:15px; padding:11px 12px; border:1px solid #f4e6bc; border-radius:9px; color:#775e24; background:#fffaf0; font-size:10px; line-height:1.6; }
+    .notice i { margin-top:1px; }
+    .list-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .count-pill { display:inline-flex; align-items:center; justify-content:center; min-width:27px; height:25px; padding:0 8px; border-radius:20px; background:#edf4ff; color:#245eb9; font-size:10px; font-weight:800; }
+    .reports-toolbar { display:flex; gap:9px; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .report-search { max-width:330px; padding:9px 11px !important; font-size:11px; }
+    .report-list { display:grid; gap:10px; }
+    .report { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:13px; border:1px solid #e6ebf3; border-radius:12px; padding:14px; background:#fff; }
+    .report-main { display:flex; align-items:center; gap:11px; min-width:0; flex:1; }
+    .file-icon { width:41px; height:45px; display:grid; place-items:center; flex:0 0 auto; border-radius:9px; background:#fff0f0; color:#d84a50; font-size:20px; }
+    .file-icon.image { background:#e9f4ff; color:#3477d7; }
+    .report-info { min-width:0; }
+    .report strong { display:block; overflow-wrap:anywhere; font-size:11px; }
+    .meta { font-size:10px; color:#64748b; margin-top:5px; line-height:1.5; overflow-wrap:anywhere; }
+    .actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .actions a,.actions button { margin:0; font-size:10px; padding:8px 11px; }
+    .empty { padding:28px 16px; text-align:center; background:#f8fafc; border:1px dashed #d6dfed; border-radius:10px; color:#64748b; font-size:11px; }
+    .empty i { display:block; font-size:27px; margin-bottom:9px; color:#91a2bb; }
+    .list-status { margin-top:10px; font-size:11px; color:#65738b; }
+    .footer-note { margin-top:18px; text-align:center; color:#99a4b5; font-size:10px; line-height:1.6; }
+    .toast { position:fixed; left:50%; bottom:25px; z-index:80; transform:translate(-50%,20px); opacity:0; pointer-events:none; padding:12px 16px; border-radius:10px; color:#fff; background:#1f2f4e; box-shadow:0 12px 35px rgba(17,35,65,.24); font-size:12px; transition:.22s ease; max-width:calc(100vw - 32px); }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    @media (max-width:1180px) { .sidebar { width:205px; flex-basis:205px; } .content { padding-inline:20px; } .topbar { padding-inline:20px; } .upload-layout { grid-template-columns:minmax(0,1fr) 200px; } }
+    @media (max-width:820px) { .sidebar { position:fixed; z-index:50; inset:0 auto 0 0; transform:translateX(-105%); transition:transform .22s ease; width:242px; box-shadow:15px 0 40px rgba(12,33,73,.22); } .sidebar.open { transform:translateX(0); } .mobile-menu { display:grid; place-items:center; flex:0 0 auto; } .topbar { gap:10px; min-height:64px; padding:12px 15px; } .search-wrap { width:auto; flex:1; } .user-meta { display:none; } .content { padding:19px 15px 25px; } .upload-layout { grid-template-columns:1fr; } .upload-help { display:grid; grid-template-columns:auto 1fr; column-gap:13px; } .upload-icon { grid-row:span 2; } .upload-help .help-item { grid-column:1/-1; } }
+    @media (max-width:520px) { .welcome-row { flex-direction:column; } .badge { align-self:flex-start; } h1 { font-size:19px; } .topbar { gap:8px; } .user-menu { display:none; } .panel { padding:14px; } .report { align-items:flex-start; } .actions { width:100%; padding-left:52px; } .actions a,.actions button { flex:1; } .upload-help { display:block; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <a class="brand" href="/" aria-label="AI Healthcare Assistant dashboard">
+      <div class="brand-mark"><i class="bi bi-heart-pulse-fill"></i></div>
+      <div><div class="brand-title">AI Healthcare</div><div class="brand-subtitle">Assistant</div></div>
+    </a>
+    <div class="nav-label">Workspace</div>
+    <nav class="nav-list">
+      <a class="nav-link" href="/"><i class="bi bi-house-door-fill"></i><span>Dashboard</span></a>
+      <a class="nav-link" href="/#symptom-checker" data-placeholder="AI Symptom Checker"><i class="bi bi-heart-pulse"></i><span>AI Symptom Checker</span></a>
+      <a class="nav-link active" href="/upload-medical-report" aria-current="page"><i class="bi bi-file-earmark-medical"></i><span>Upload Medical Report</span></a>
+      <a class="nav-link" href="/#scan-analysis" data-placeholder="MRI / X-ray Analysis"><i class="bi bi-brain"></i><span>MRI / X-ray Analysis</span></a>
+      <a class="nav-link" href="/#chatbot" data-placeholder="AI Health Chatbot"><i class="bi bi-chat-dots"></i><span>AI Health Chatbot</span></a>
+      <a class="nav-link" href="/#nearby-hospitals"><i class="bi bi-geo-alt"></i><span>Nearby Hospitals</span></a>
+      <a class="nav-link" href="/appointments"><i class="bi bi-calendar2-check"></i><span>Appointments</span></a>
+      <a class="nav-link" href="/medical-history"><i class="bi bi-clipboard2-pulse"></i><span>Medical History</span></a>
+      <a class="nav-link" href="/emergency-alert"><i class="bi bi-bell"></i><span>Emergency Alert</span></a>
+    </nav>
+    <div class="nav-divider"></div>
+    <nav class="nav-list">
+      <a class="nav-link" href="/#profile" data-placeholder="Profile"><i class="bi bi-person"></i><span>Profile</span></a>
+      <a class="nav-link" href="/#settings" data-placeholder="Settings"><i class="bi bi-gear"></i><span>Settings</span></a>
+      <a class="nav-link" href="/#logout" data-placeholder="Logout"><i class="bi bi-box-arrow-right"></i><span>Logout</span></a>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="emergency-mini">
+      <div class="mini-heading"><span class="mini-call-icon"><i class="bi bi-telephone-fill"></i></span>Emergency Helpline</div>
+      <a class="mini-number" href="tel:112" aria-label="Call national emergency number 112">112</a>
+      <div class="mini-caption">National Emergency Number · India</div>
+      <a href="/emergency-alert" class="btn-light-sidebar">View emergency options <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="sidebar-footer">Healthcare Assistant · Medical Reports</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation" aria-expanded="false"><i class="bi bi-list"></i></button>
+      <div class="search-wrap"><i class="bi bi-search"></i><input class="search-input" id="pageSearch" type="search" placeholder="Search uploaded reports..." aria-label="Search uploaded reports"></div>
+      <div class="topbar-spacer"></div>
+      <a class="icon-button" href="/emergency-alert" aria-label="Emergency options"><i class="bi bi-bell"></i></a>
+      <div class="user-menu" aria-label="Current user"><span class="avatar">HA</span><span class="user-meta"><span class="user-name">Healthcare User</span><span class="user-role">Patient workspace</span></span></div>
+    </header>
+
+    <div class="content">
+      <div class="welcome-row">
+        <div>
+          <div class="crumb"><a href="/">Dashboard</a><i class="bi bi-chevron-right"></i><span>Medical Reports</span></div>
+          <h1>Medical Reports</h1>
+          <div class="subtitle">Upload and manage your medical reports in one place. Files are stored on the server, while report details are saved in MySQL.</div>
+        </div>
+        <span class="badge"><i class="bi bi-shield-check"></i> Report workspace</span>
+      </div>
+
+      <section class="panel">
+        <div class="panel-heading"><h2><i class="bi bi-cloud-arrow-up" style="color:#2869cf;margin-right:7px"></i>Upload a report</h2></div>
+        <p class="panel-desc">Choose a PDF or image of your report, add a title, and upload it. Maximum file size: 10 MB.</p>
+        <div class="upload-layout">
+          <div class="upload-form-area">
+            <form id="uploadForm">
+              <label for="title">Report title</label>
+              <input id="title" name="title" type="text" maxlength="180" value="Medical Report" required>
+              <label for="file">Select report (PDF, PNG, JPG, JPEG)</label>
+              <input id="file" name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" required>
+              <button id="uploadButton" class="btn btn-primary" type="submit"><i class="bi bi-cloud-upload"></i> Upload report</button>
+            </form>
+            <div id="uploadStatus" class="status" aria-live="polite"></div>
+            <div class="notice"><i class="bi bi-info-circle-fill"></i><div>Only upload reports you are authorized to store. This page does not implement patient login or patient-specific access controls. Do not use it for real patient data until access control is added.</div></div>
+          </div>
+          <aside class="upload-help">
+            <div class="upload-icon"><i class="bi bi-file-earmark-medical"></i></div>
+            <h3>Supported report files</h3>
+            <p>Keep readable copies of your medical reports organized for later viewing or downloading.</p>
+            <div class="help-item"><i class="bi bi-check-circle-fill"></i><span>PDF documents</span></div>
+            <div class="help-item"><i class="bi bi-check-circle-fill"></i><span>PNG and JPG images</span></div>
+            <div class="help-item"><i class="bi bi-check-circle-fill"></i><span>Maximum 10 MB per file</span></div>
+            <div class="help-item"><i class="bi bi-database-check"></i><span>Report metadata saved in MySQL</span></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="list-header">
+          <div><h2><i class="bi bi-folder2-open" style="color:#2869cf;margin-right:7px"></i>My uploaded reports</h2><div class="subtitle">View, download, or delete a report you uploaded.</div></div>
+          <span id="reportCount" class="count-pill">0</span>
+        </div>
+        <div class="reports-toolbar">
+          <input id="reportFilter" class="report-search" type="search" placeholder="Filter by title or filename..." aria-label="Filter reports">
+          <button id="refreshButton" class="btn btn-outline" type="button"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+        </div>
+        <div id="reportList" class="report-list"><div class="empty"><i class="bi bi-hourglass-split"></i>Loading reports…</div></div>
+        <div id="listStatus" class="list-status" aria-live="polite"></div>
+      </section>
+      <div class="footer-note">For organization and reference only. Medical reports should be interpreted with a qualified healthcare professional.</div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+  const uploadForm = document.getElementById('uploadForm');
+  const uploadStatus = document.getElementById('uploadStatus');
+  const uploadButton = document.getElementById('uploadButton');
+  const reportList = document.getElementById('reportList');
+  const listStatus = document.getElementById('listStatus');
+  const reportCount = document.getElementById('reportCount');
+  const reportFilter = document.getElementById('reportFilter');
+  const toastEl = document.getElementById('toast');
+  let cachedReports = [];
+  let toastTimer;
+
+  function showToast(message) {
+    toastEl.textContent = message;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    })[char]);
+  }
+
+  function formatBytes(bytes) {
+    const size = Number(bytes) || 0;
+    if (size < 1024) return `${size} B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+  }
+
+  function renderReports() {
+    const term = reportFilter.value.trim().toLowerCase();
+    const filtered = cachedReports.filter(report =>
+      `${report.title || ''} ${report.original_filename || ''}`.toLowerCase().includes(term)
+    );
+    reportCount.textContent = String(cachedReports.length);
+    if (!filtered.length) {
+      reportList.innerHTML = `<div class="empty"><i class="bi bi-folder2"></i>${cachedReports.length ? 'No reports match your search.' : 'No reports uploaded yet.'}</div>`;
+      return;
+    }
+    reportList.innerHTML = filtered.map(report => {
+      const id = Number(report.id);
+      const imageType = String(report.content_type || '').startsWith('image/');
+      const uploaded = report.uploaded_at ? new Date(report.uploaded_at).toLocaleString() : 'Date unavailable';
+      return `<article class="report">
+        <div class="report-main">
+          <span class="file-icon ${imageType ? 'image' : ''}"><i class="bi ${imageType ? 'bi-file-earmark-image' : 'bi-file-earmark-pdf'}"></i></span>
+          <div class="report-info">
+            <strong>${escapeHtml(report.title || 'Medical Report')}</strong>
+            <div class="meta">${escapeHtml(report.original_filename || 'Report file')} · ${formatBytes(report.file_size)}</div>
+            <div class="meta"><i class="bi bi-clock"></i> Uploaded: ${escapeHtml(uploaded)}</div>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline" href="/api/reports/${id}/download?disposition=inline" target="_blank" rel="noopener"><i class="bi bi-eye"></i> View</a>
+          <a class="btn btn-primary" href="/api/reports/${id}/download"><i class="bi bi-download"></i> Download</a>
+          <button class="btn btn-danger" type="button" data-delete-id="${id}"><i class="bi bi-trash"></i> Delete</button>
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  async function readJson(response) {
+    let data;
+    try { data = await response.json(); }
+    catch { data = {}; }
+    if (!response.ok) throw new Error(data.detail || `Request failed (${response.status}).`);
+    return data;
+  }
+
+  async function loadReports() {
+    reportList.innerHTML = '<div class="empty"><i class="bi bi-hourglass-split"></i>Loading reports…</div>';
+    listStatus.textContent = '';
+    try {
+      const response = await fetch('/api/reports');
+      const data = await readJson(response);
+      cachedReports = Array.isArray(data.reports) ? data.reports : [];
+      renderReports();
+    } catch (error) {
+      cachedReports = [];
+      reportCount.textContent = '0';
+      reportList.innerHTML = '<div class="empty"><i class="bi bi-exclamation-circle"></i>Unable to load reports. Check that the server and database are running.</div>';
+      listStatus.textContent = error.message;
+    }
+  }
+
+  uploadForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    uploadStatus.textContent = '';
+    const fileInput = document.getElementById('file');
+    const selectedFile = fileInput.files && fileInput.files[0];
+    if (!selectedFile) {
+      uploadStatus.textContent = 'Please select a report file.';
+      return;
+    }
+    if (selectedFile.size > 10 * 1024 * 1024) {
+      uploadStatus.textContent = 'Maximum file size is 10 MB.';
+      return;
+    }
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value.trim() || 'Medical Report');
+    formData.append('file', selectedFile);
+    uploadButton.disabled = true;
+    uploadButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Uploading…';
+    try {
+      const response = await fetch('/api/reports/upload', { method:'POST', body:formData });
+      const data = await readJson(response);
+      uploadStatus.textContent = data.message || 'Report uploaded successfully.';
+      showToast('Medical report uploaded successfully.');
+      uploadForm.reset();
+      document.getElementById('title').value = 'Medical Report';
+      await loadReports();
+    } catch (error) {
+      uploadStatus.textContent = error.message;
+    } finally {
+      uploadButton.disabled = false;
+      uploadButton.innerHTML = '<i class="bi bi-cloud-upload"></i> Upload report';
+    }
+  });
+
+  reportList.addEventListener('click', async event => {
+    const button = event.target.closest('[data-delete-id]');
+    if (!button) return;
+    const id = Number(button.dataset.deleteId);
+    if (!Number.isInteger(id) || id < 1) return;
+    if (!confirm('Delete this uploaded report? This also removes its stored file.')) return;
+    button.disabled = true;
+    try {
+      const response = await fetch(`/api/reports/${id}`, { method:'DELETE' });
+      const data = await readJson(response);
+      listStatus.textContent = data.message || 'Report deleted.';
+      showToast('Report deleted.');
+      await loadReports();
+    } catch (error) {
+      button.disabled = false;
+      listStatus.textContent = error.message;
+    }
+  });
+
+  reportFilter.addEventListener('input', renderReports);
+  document.getElementById('refreshButton').addEventListener('click', loadReports);
+  document.getElementById('pageSearch').addEventListener('input', event => {
+    reportFilter.value = event.target.value;
+    renderReports();
+  });
+
+  // Responsive sidebar toggle.
+  const sidebar = document.getElementById('sidebar');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileMenu.addEventListener('click', () => {
+    const open = sidebar.classList.toggle('open');
+    mobileMenu.setAttribute('aria-expanded', String(open));
+    mobileMenu.innerHTML = open ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+  });
+  document.addEventListener('click', event => {
+    if (window.innerWidth <= 820 && sidebar.classList.contains('open') &&
+        !sidebar.contains(event.target) && !mobileMenu.contains(event.target)) {
+      sidebar.classList.remove('open');
+      mobileMenu.setAttribute('aria-expanded', 'false');
+      mobileMenu.innerHTML = '<i class="bi bi-list"></i>';
+    }
+  });
+
+  document.querySelectorAll('[data-placeholder]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      showToast(`${link.dataset.placeholder} is not connected yet.`);
+    });
+  });
+
+  loadReports();
+</script>
+</body>
+</html>

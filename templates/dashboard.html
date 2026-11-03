@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#155bd5">
+  <title>Dashboard | AI Healthcare Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root{--blue:#155bd5;--blue2:#2874e8;--ink:#192943;--muted:#71809a;--line:#e5ebf4;--bg:#f5f8fc;--white:#fff;--green:#16865b;--red:#df454d;--orange:#d98b17;--purple:#8150c8;--shadow:0 8px 28px rgba(29,55,95,.055);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:13px}a{text-decoration:none;color:inherit}button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:flex;max-width:1700px;margin:auto;background:var(--bg)}
+    .sidebar{position:sticky;top:0;height:100vh;width:245px;flex:0 0 245px;padding:22px 14px 16px;background:linear-gradient(180deg,#1557c6,#2b75e5);color:#fff;display:flex;flex-direction:column;overflow-y:auto;z-index:40}.brand{display:flex;align-items:center;gap:11px;padding:2px 9px 25px}.brand-icon{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;background:#ffffff25;font-size:22px}.brand-name{font-size:15px;font-weight:800;line-height:1.25}.brand-sub{font-size:11px;color:#dbe8ff;margin-top:4px}.nav-label{padding:8px 12px;color:#c9dcff;font-size:10px;text-transform:uppercase;letter-spacing:1.3px;font-weight:800}.nav{display:grid;gap:4px}.nav a{min-height:40px;padding:10px 12px;border-radius:9px;display:flex;align-items:center;gap:11px;color:#f4f7ff;font-weight:550;font-size:12px;transition:.15s}.nav a i{width:17px;font-size:15px;text-align:center}.nav a:hover{background:#ffffff20;transform:translateX(2px)}.nav a.active{background:#fff;color:var(--blue);font-weight:800;box-shadow:0 5px 16px #0a367426}.nav-divider{height:1px;background:#ffffff33;margin:13px 7px}.side-spacer{flex:1;min-height:18px}.emergency-box{margin:15px 5px 0;padding:14px 12px;border:1px solid #ffffff42;border-radius:14px;background:#ffffff14;text-align:center}.emergency-box .label{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:750;font-size:11px}.emergency-box .number{display:block;margin:9px 0 2px;font-size:28px;font-weight:850}.emergency-box small{color:#e2ecff;font-size:10px}.side-foot{text-align:center;color:#c8dcff;font-size:10px;padding-top:15px}
+    .main{min-width:0;flex:1}.topbar{height:72px;position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 27px}.menu-btn{display:none;width:37px;height:37px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}.search{width:min(500px,55%);position:relative}.search i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#8290a5}.search input{width:100%;height:40px;padding:0 14px 0 37px;border:1px solid var(--line);border-radius:10px;background:#fbfcfe;outline:none}.search input:focus{border-color:#8bb4f4;box-shadow:0 0 0 3px #155bd511}.top-spacer{flex:1}.top-icon{width:38px;height:38px;border:0;border-radius:10px;background:#fff;color:#63728a;font-size:17px}.top-icon:hover{background:#f1f5fb}.profile{display:flex;align-items:center;gap:9px;border:0;background:transparent;text-align:left;color:var(--ink);padding:3px}.avatar{width:36px;height:36px;border-radius:50%;background:#e0ecff;color:#245cb0;display:grid;place-items:center;font-weight:800}.profile-name{font-size:11px;font-weight:800}.profile-role{font-size:10px;color:var(--muted);margin-top:3px}.content{padding:24px 28px 30px;max-width:1600px;margin:auto}.welcome{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:17px}.welcome h1{font-size:21px;letter-spacing:-.5px;margin:0;font-weight:850}.welcome p{margin:6px 0 0;color:var(--muted);font-size:12px}.date{padding:10px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#65748e;font-size:11px;white-space:nowrap}.notice{display:flex;gap:10px;padding:11px 13px;border:1px solid #dce9fb;border-radius:11px;background:#f0f6ff;color:#526984;line-height:1.55;font-size:11px;margin-bottom:20px}.notice i{font-size:15px;color:var(--blue);margin-top:1px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:20px 0 11px}.section-head h2{font-size:14px;margin:0;font-weight:850}.muted{color:var(--muted)}.small{font-size:10px}.grid{display:grid;gap:13px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.stat,.card,.panel{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.stat{padding:15px;display:flex;align-items:center;gap:12px;min-height:88px}.stat-icon{width:41px;height:41px;border-radius:12px;display:grid;place-items:center;font-size:18px}.blue{background:#e4efff;color:#2468cc}.green{background:#e0f6eb;color:#18865d}.orange{background:#fff2dc;color:#d48b18}.purple{background:#f0e8ff;color:#8151c6}.stat-value{font-size:22px;font-weight:850;line-height:1.1}.stat-label{margin-top:5px;font-size:10px;color:var(--muted)}.services{grid-template-columns:repeat(4,minmax(0,1fr))}.service{padding:15px;min-height:154px;display:flex;flex-direction:column}.service-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;font-size:18px}.service h3{font-size:12px;margin:11px 0 6px;font-weight:850}.service p{font-size:10px;color:var(--muted);line-height:1.5;margin:0 0 12px;flex:1}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:max-content;border:0;border-radius:8px;padding:9px 11px;font-size:10px;font-weight:800}.btn-blue{background:var(--blue);color:#fff}.btn-green{background:var(--green);color:#fff}.btn-purple{background:var(--purple);color:#fff}.btn-orange{background:#e79919;color:#fff}.btn-red{background:var(--red);color:#fff}.btn-light{background:#edf4ff;color:#2059ad}.btn-outline{border:1px solid var(--line);background:#fff;color:#41516c}.overview{grid-template-columns:repeat(4,minmax(0,1fr))}.overview-card{padding:15px;min-height:185px;display:flex;flex-direction:column}.card-title-row{display:flex;align-items:center;gap:9px;margin-bottom:13px}.round{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:14px}.card-title{font-size:11px;font-weight:850;margin:0}.preview{border:1px solid #edf1f6;border-radius:10px;padding:11px;display:flex;align-items:center;gap:10px}.preview-icon{width:44px;height:44px;border-radius:9px;background:#e8f2ff;color:#276ac8;display:grid;place-items:center;font-size:20px;flex-shrink:0}.preview-title{font-size:10px;font-weight:800}.preview-text{font-size:9px;color:var(--muted);line-height:1.5;margin-top:4px}.inline-link{border:0;background:none;color:#2363c2;font-size:10px;font-weight:850;padding:12px 0 0;display:flex;justify-content:center;align-items:center;gap:6px;margin-top:auto}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{padding:9px;border:1px solid #edf1f6;border-radius:9px}.metric-name{font-size:9px;color:var(--muted)}.metric-value{font-size:14px;font-weight:850;margin-top:4px}.metric-note{font-size:9px;color:#8a97aa;margin-top:3px}.bottom{grid-template-columns:1fr 1fr}.panel{padding:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.panel-head h2{font-size:12px;margin:0;font-weight:850}.activity-list{display:grid;gap:0}.activity{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #eff2f7}.activity:last-child{border-bottom:0}.activity-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#eaf2ff;color:#2868c5;flex-shrink:0}.activity-title{font-size:10px;font-weight:800}.activity-meta{font-size:9px;color:var(--muted);margin-top:4px}.activity-date{margin-left:auto;font-size:9px;color:#8995a7;white-space:nowrap}.tips{display:grid;gap:12px}.tip{display:flex;align-items:center;gap:10px}.tip-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#eaf3ff;color:#3378bd;font-size:14px;flex-shrink:0}.tip strong{font-size:10px}.tip p{font-size:9px;color:var(--muted);margin:3px 0 0;line-height:1.45}.empty{padding:17px;text-align:center;border:1px dashed #d8e1ee;border-radius:10px;color:var(--muted);font-size:10px}.footer{text-align:center;font-size:9px;color:#99a4b4;margin-top:20px}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#1e2d49;color:#fff;padding:11px 15px;border-radius:9px;z-index:90;font-size:11px;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
+    @media(max-width:1200px){.sidebar{width:220px;flex-basis:220px}.services,.overview{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:820px){.sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-105%);transition:transform .2s;width:250px;box-shadow:15px 0 40px #0b20402b}.sidebar.open{transform:translateX(0)}.menu-btn{display:grid;place-items:center}.topbar{padding:0 14px;height:64px;gap:9px}.content{padding:19px 15px 25px}.profile-copy{display:none}.search{width:auto;flex:1}.bottom{grid-template-columns:1fr}}
+    @media(max-width:540px){.welcome{align-items:flex-start;flex-direction:column}.date{white-space:normal}.stats,.services,.overview{grid-template-columns:1fr}.service{min-height:135px}.topbar{gap:7px}.search input{font-size:11px}.profile{gap:5px}.grid{gap:10px}.section-head{margin-top:17px}.panel{padding:13px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <a class="brand" href="/">
+      <span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span>
+      <span><span class="brand-name">AI Healthcare</span><span class="brand-sub">Assistant</span></span>
+    </a>
+    <div class="nav-label">Workspace</div>
+    <nav class="nav">
+      <a class="active" href="/" aria-current="page"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+      <a href="/symptom-checker"><i class="bi bi-heart-pulse"></i>AI Symptom Checker</a>
+      <a href="/upload-medical-report"><i class="bi bi-file-earmark-medical"></i>Upload Medical Report</a>
+      <a href="/scan-analysis"><i class="bi bi-image"></i>MRI / X-ray Analysis</a>
+      <a href="/health-chatbot"><i class="bi bi-chat-dots"></i>AI Health Chatbot</a>
+      <a href="/smartwatch"><i class="bi bi-smartwatch"></i>Smartwatch Integration</a>
+      <a href="/health-intelligence"><i class="bi bi-graph-up-arrow"></i>AI Health Intelligence</a>
+      <a href="/doctor-preparation"><i class="bi bi-clipboard2-check"></i>Doctor Visit Preparation</a>
+      <a href="/nearby-hospitals"><i class="bi bi-geo-alt"></i>Nearby Hospitals</a>
+      <a href="/appointments"><i class="bi bi-calendar2-check"></i>Appointments</a>
+      <a href="/medical-history"><i class="bi bi-clipboard2-pulse"></i>Medical History</a>
+      <a href="/emergency-alert"><i class="bi bi-shield-exclamation"></i>Emergency SOS</a>
+    </nav>
+    <div class="nav-divider"></div>
+    <nav class="nav">
+      <a href="#profile" data-placeholder="Profile"><i class="bi bi-person"></i>Profile</a>
+      <a href="#settings" data-placeholder="Settings"><i class="bi bi-gear"></i>Settings</a>
+      <a href="#logout" data-placeholder="Logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </nav>
+    <div class="side-spacer"></div>
+    <div class="emergency-box">
+      <div class="label"><i class="bi bi-telephone-fill"></i> Emergency Helpline</div>
+      <a class="number" href="tel:112">112</a>
+      <small>National Emergency Number · India</small>
+      <a class="btn btn-light" style="width:100%;margin-top:11px" href="/emergency-alert">Emergency options <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="side-foot">AI Healthcare Assistant</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false"><i class="bi bi-list"></i></button>
+      <div class="search"><i class="bi bi-search"></i><input id="dashboardSearch" type="search" placeholder="Search dashboard modules…" aria-label="Search dashboard modules"></div>
+      <div class="top-spacer"></div>
+      <button class="top-icon" type="button" id="refreshBtn" title="Refresh dashboard data" aria-label="Refresh dashboard data"><i class="bi bi-arrow-clockwise"></i></button>
+      <div class="profile"><span class="avatar">HA</span><span class="profile-copy"><span class="profile-name">Healthcare User</span><span class="profile-role">Personal workspace</span></span></div>
+    </header>
+
+    <div class="content">
+      <section class="welcome">
+        <div><h1>Welcome to your Health Dashboard 👋</h1><p>Manage your health records, appointments, reports, and connected services in one place.</p></div>
+        <div class="date"><i class="bi bi-calendar3"></i> <span id="todayDate"></span></div>
+      </section>
+
+      <div class="notice"><i class="bi bi-info-circle-fill"></i><div><strong>Personal health workspace.</strong> Counts are loaded from the available APIs. Health measurements are not displayed until a supported device or data source is connected.</div></div>
+
+      <div class="section-head"><h2>Your Overview</h2><span class="small muted" id="apiStatus">Connecting to your application…</span></div>
+      <section class="grid stats" aria-label="Application statistics">
+        <article class="stat"><span class="stat-icon blue"><i class="bi bi-file-earmark-medical"></i></span><div><div class="stat-value" id="reportCount">—</div><div class="stat-label">Uploaded reports</div></div></article>
+        <article class="stat"><span class="stat-icon green"><i class="bi bi-clipboard2-pulse"></i></span><div><div class="stat-value" id="historyCount">—</div><div class="stat-label">Medical history records</div></div></article>
+        <article class="stat"><span class="stat-icon orange"><i class="bi bi-calendar2-check"></i></span><div><div class="stat-value" id="appointmentCount">—</div><div class="stat-label">Appointments</div></div></article>
+        <article class="stat"><span class="stat-icon purple"><i class="bi bi-telephone"></i></span><div><div class="stat-value" id="helplineCount">—</div><div class="stat-label">Emergency helplines</div></div></article>
+      </section>
+
+      <div class="section-head"><h2>Quick Access</h2><span class="small muted">Open a service</span></div>
+      <section class="grid services" id="serviceGrid">
+        <article class="card service" data-search="medical report upload pdf image files"><span class="service-icon green"><i class="bi bi-file-earmark-arrow-up"></i></span><h3>Medical Report Upload</h3><p>Upload, view, download, and manage your medical report files.</p><a class="btn btn-green" href="/upload-medical-report">Upload report <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="medical history conditions medication allergies surgery visits"><span class="service-icon blue"><i class="bi bi-clipboard2-pulse"></i></span><h3>Medical History</h3><p>Organize your conditions, medications, allergies, surgeries, and visits.</p><a class="btn btn-blue" href="/medical-history">Open history <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="smartwatch wearable heart rate pulse spo2 steps"><span class="service-icon purple"><i class="bi bi-smartwatch"></i></span><h3>Smartwatch Integration</h3><p>Connect a supported wearable data source and review synchronized measurements.</p><a class="btn btn-purple" href="/smartwatch">Connect device <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="AI health intelligence report comparison insights"><span class="service-icon orange"><i class="bi bi-graph-up-arrow"></i></span><h3>AI Health Intelligence</h3><p>Review report comparison and explanations from available health records.</p><a class="btn btn-orange" href="/health-intelligence">View insights <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="doctor visit preparation health summary consultation pdf"><span class="service-icon blue"><i class="bi bi-clipboard2-check"></i></span><h3>Doctor Visit Preparation</h3><p>Prepare an organized summary and questions for your healthcare professional.</p><a class="btn btn-blue" href="/doctor-preparation">Prepare summary <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="appointments doctor hospital booking schedule"><span class="service-icon green"><i class="bi bi-calendar2-plus"></i></span><h3>Appointments</h3><p>Book appointments and review your saved bookings.</p><a class="btn btn-green" href="/appointments">Manage bookings <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="nearby hospitals clinics location maps"><span class="service-icon purple"><i class="bi bi-geo-alt"></i></span><h3>Nearby Hospitals</h3><p>Search hospitals and clinics using your chosen location.</p><a class="btn btn-purple" href="/nearby-hospitals">Find hospitals <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="emergency SOS alert contacts 112 108"><span class="service-icon" style="background:#ffebec;color:#d9434d"><i class="bi bi-shield-exclamation"></i></span><h3>Emergency SOS</h3><p>Access emergency numbers, location sharing, and trusted-contact message drafts.</p><a class="btn btn-red" href="/emergency-alert">Open emergency options <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="AI health chatbot ask questions medical information"><span class="service-icon blue"><i class="bi bi-chat-dots"></i></span><h3>AI Health Chatbot</h3><p>Ask general health-information questions and understand medical terms.</p><a class="btn btn-blue" href="/health-chatbot">Start conversation <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="AI symptom checker symptoms health information"><span class="service-icon green"><i class="bi bi-heart-pulse"></i></span><h3>AI Symptom Checker</h3><p>Describe symptoms to receive general educational information, not a diagnosis.</p><a class="btn btn-green" href="/symptom-checker">Check symptoms <i class="bi bi-arrow-right"></i></a></article>
+        <article class="card service" data-search="MRI xray scan imaging upload"><span class="service-icon purple"><i class="bi bi-image"></i></span><h3>MRI / X-ray Analysis</h3><p>Open the medical-imaging upload interface and model status.</p><a class="btn btn-purple" href="/scan-analysis">Open imaging <i class="bi bi-arrow-right"></i></a></article>
+      </section>
+
+      <div class="section-head"><h2>Health Measurements</h2><span class="small muted">Only connected readings are shown</span></div>
+      <section class="grid overview">
+        <article class="card overview-card">
+          <div class="card-title-row"><span class="round red" style="background:#ffe9eb;color:#d94852"><i class="bi bi-heart-pulse"></i></span><h3 class="card-title">Wearable measurements</h3></div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-name">Heart rate</div><div class="metric-value">— BPM</div><div class="metric-note">Not connected</div></div>
+            <div class="metric"><div class="metric-name">Blood oxygen</div><div class="metric-value">— %</div><div class="metric-note">Not connected</div></div>
+            <div class="metric"><div class="metric-name">Daily steps</div><div class="metric-value">—</div><div class="metric-note">Not connected</div></div>
+            <div class="metric"><div class="metric-name">Sleep duration</div><div class="metric-value">—</div><div class="metric-note">Not connected</div></div>
+          </div>
+          <a class="inline-link" href="/smartwatch">Connect supported device <i class="bi bi-arrow-right"></i></a>
+        </article>
+        <article class="card overview-card">
+          <div class="card-title-row"><span class="round blue"><i class="bi bi-activity"></i></span><h3 class="card-title">Personal health information</h3></div>
+          <p class="preview-text">Your dashboard will show measurements only after an authorized source provides real records. Uploaded laboratory values are not automatically treated as live health measurements.</p>
+          <a class="inline-link" href="/health-intelligence">Explore health intelligence <i class="bi bi-arrow-right"></i></a>
+        </article>
+        <article class="card overview-card">
+          <div class="card-title-row"><span class="round green"><i class="bi bi-calendar-check"></i></span><h3 class="card-title">Appointments</h3></div>
+          <div id="appointmentPreview" class="empty">Appointment data will appear when the appointments API is available.</div>
+          <a class="inline-link" href="/appointments">View appointments <i class="bi bi-arrow-right"></i></a>
+        </article>
+        <article class="card overview-card">
+          <div class="card-title-row"><span class="round" style="background:#ffebec;color:#d9434d"><i class="bi bi-shield-exclamation"></i></span><h3 class="card-title">Emergency support</h3></div>
+          <div class="preview"><span class="preview-icon" style="background:#fff0f0;color:#d9434d"><i class="bi bi-telephone-fill"></i></span><div><div class="preview-title">Need urgent help?</div><div class="preview-text">Use the emergency page to view helplines and prepare contact messages.</div></div></div>
+          <a class="inline-link" href="/emergency-alert">Open emergency SOS <i class="bi bi-arrow-right"></i></a>
+        </article>
+      </section>
+
+      <div class="section-head"><h2>Recent Records</h2><span class="small muted">Loaded from connected APIs where available</span></div>
+      <section class="grid bottom">
+        <article class="panel"><div class="panel-head"><h2>Recent Reports &amp; History</h2><a class="small" style="color:var(--blue);font-weight:800" href="/medical-history">View history</a></div><div class="activity-list" id="recentRecords"><div class="empty">Loading records…</div></div></article>
+        <article class="panel"><div class="panel-head"><h2>Everyday Health Tips</h2><span class="small muted">General wellness</span></div><div class="tips">
+          <div class="tip"><span class="tip-icon"><i class="bi bi-cup-straw"></i></span><div><strong>Drink water regularly</strong><p>Maintain hydration; individual needs vary.</p></div></div>
+          <div class="tip"><span class="tip-icon" style="background:#ffeded;color:#d8555b"><i class="bi bi-apple"></i></span><div><strong>Choose balanced meals</strong><p>Include a variety of vegetables, fruits, and whole grains.</p></div></div>
+          <div class="tip"><span class="tip-icon" style="background:#e3f7ed;color:#20845d"><i class="bi bi-person-walking"></i></span><div><strong>Move regularly</strong><p>Choose physical activity that suits your abilities.</p></div></div>
+          <div class="tip"><span class="tip-icon" style="background:#f1eaff;color:#8050c1"><i class="bi bi-moon-stars"></i></span><div><strong>Keep a sleep routine</strong><p>A consistent sleep schedule can support wellbeing.</p></div></div>
+        </div></article>
+      </section>
+      <div class="footer">For organizing health information only. Not a substitute for professional medical advice or emergency services.</div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+  const $ = (selector) => document.querySelector(selector);
+  const toast = (message) => {
+    const el = $('#toast'); el.textContent = message; el.classList.add('show');
+    window.clearTimeout(toast.timer); toast.timer = window.setTimeout(() => el.classList.remove('show'), 2600);
+  };
+  $('#todayDate').textContent = new Intl.DateTimeFormat('en-IN', {
+    weekday: 'long', day: '2-digit', month: 'short', year: 'numeric'
+  }).format(new Date());
+
+  const sidebar = $('#sidebar');
+  $('#menuBtn').addEventListener('click', () => {
+    const opened = sidebar.classList.toggle('open');
+    $('#menuBtn').setAttribute('aria-expanded', String(opened));
+    $('#menuBtn').innerHTML = opened ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+  });
+  document.addEventListener('click', (event) => {
+    if (window.innerWidth <= 820 && sidebar.classList.contains('open') &&
+        !sidebar.contains(event.target) && !$('#menuBtn').contains(event.target)) {
+      sidebar.classList.remove('open');
+      $('#menuBtn').setAttribute('aria-expanded', 'false');
+      $('#menuBtn').innerHTML = '<i class="bi bi-list"></i>';
+    }
+  });
+
+  document.querySelectorAll('[data-placeholder]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      toast(`${link.dataset.placeholder} requires an authentication/profile module.`);
+    });
+  });
+
+  $('#dashboardSearch').addEventListener('input', (event) => {
+    const term = event.target.value.trim().toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('#serviceGrid .service').forEach((card) => {
+      const match = !term || `${card.dataset.search || ''} ${card.textContent}`.toLowerCase().includes(term);
+      card.hidden = !match;
+      if (match) visible++;
+    });
+    const empty = $('#serviceSearchEmpty');
+    if (empty) empty.remove();
+    if (term && visible === 0) {
+      const message = document.createElement('div');
+      message.id = 'serviceSearchEmpty'; message.className = 'empty';
+      message.textContent = 'No modules match your search.';
+      $('#serviceGrid').after(message);
+    }
+  });
+
+  async function getJson(url) {
+    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+    let data = {};
+    try { data = await response.json(); } catch (_) { /* handled below */ }
+    if (!response.ok) throw new Error(data.detail || `Request failed: ${url}`);
+    return data;
+  }
+  function listFrom(data, keys) {
+    if (Array.isArray(data)) return data;
+    for (const key of keys) if (Array.isArray(data?.[key])) return data[key];
+    return [];
+  }
+  function countFrom(data, keys) {
+    if (Number.isFinite(Number(data?.count))) return Number(data.count);
+    return listFrom(data, keys).length;
+  }
+  function safeDate(item) {
+    return item.uploaded_at || item.recorded_date || item.created_at || item.appointment_date || '';
+  }
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    })[char]);
+  }
+  function showRecent(reports, history) {
+    const items = [
+      ...reports.map((item) => ({
+        title: item.title || item.original_filename || 'Medical report',
+        detail: item.original_filename || 'Uploaded medical report',
+        date: safeDate(item), icon: 'bi-file-earmark-medical', tone: 'purple', href: '/upload-medical-report'
+      })),
+      ...history.map((item) => ({
+        title: item.title || 'Medical history record',
+        detail: item.category ? `Category: ${item.category}` : 'Medical history',
+        date: safeDate(item), icon: 'bi-clipboard2-pulse', tone: 'green', href: '/medical-history'
+      }))
+    ].sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0)).slice(0,5);
+    const target = $('#recentRecords');
+    if (!items.length) {
+      target.innerHTML = '<div class="empty">No reports or medical history records are available yet.</div>';
+      return;
+    }
+    target.innerHTML = items.map((item) => `
+      <a class="activity" href="${item.href}">
+        <span class="activity-icon"><i class="bi ${item.icon}"></i></span>
+        <span><span class="activity-title">${escapeHtml(item.title)}</span><span class="activity-meta">${escapeHtml(item.detail)}</span></span>
+        <span class="activity-date">${item.date ? escapeHtml(new Date(item.date).toLocaleDateString('en-IN')) : 'Saved'}</span>
+      </a>`).join('');
+  }
+  async function loadDashboard() {
+    $('#apiStatus').textContent = 'Refreshing connected data…';
+    const endpoints = await Promise.allSettled([
+      getJson('/api/reports'),
+      getJson('/api/medical-history'),
+      getJson('/api/appointments'),
+      getJson('/api/emergency/helplines')
+    ]);
+    const [reportsResult, historyResult, appointmentsResult, helplinesResult] = endpoints;
+    const reports = reportsResult.status === 'fulfilled' ? listFrom(reportsResult.value, ['reports','items']) : [];
+    const history = historyResult.status === 'fulfilled' ? listFrom(historyResult.value, ['records','items']) : [];
+    $('#reportCount').textContent = reportsResult.status === 'fulfilled' ? countFrom(reportsResult.value, ['reports','items']) : '—';
+    $('#historyCount').textContent = historyResult.status === 'fulfilled' ? countFrom(historyResult.value, ['records','items']) : '—';
+    $('#appointmentCount').textContent = appointmentsResult.status === 'fulfilled' ? countFrom(appointmentsResult.value, ['appointments','items','records']) : '—';
+    $('#helplineCount').textContent = helplinesResult.status === 'fulfilled' ? countFrom(helplinesResult.value, ['helplines','items']) : '—';
+    showRecent(reports, history);
+
+    if (appointmentsResult.status === 'fulfilled') {
+      const appts = listFrom(appointmentsResult.value, ['appointments','items','records']);
+      const preview = $('#appointmentPreview');
+      if (appts.length) {
+        const next = appts[0];
+        preview.className = 'preview';
+        preview.innerHTML = `<span class="preview-icon"><i class="bi bi-calendar-check"></i></span><div><div class="preview-title">${escapeHtml(next.doctor_name || next.doctor || 'Saved appointment')}</div><div class="preview-text">${escapeHtml(next.hospital_name || next.specialty || 'Appointment record')} · ${escapeHtml(next.appointment_date || '')} ${escapeHtml(next.appointment_time || '')}</div></div>`;
+      } else {
+        preview.className = 'empty'; preview.textContent = 'No appointments have been saved yet.';
+      }
+    }
+    const successful = endpoints.filter((result) => result.status === 'fulfilled').length;
+    $('#apiStatus').textContent = `${successful} of 4 dashboard APIs connected`;
+  }
+  $('#refreshBtn').addEventListener('click', loadDashboard);
+  loadDashboard();
+</script>
+</body>
+</html>
+

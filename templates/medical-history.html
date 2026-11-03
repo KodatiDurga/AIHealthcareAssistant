@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medical History | AI Healthcare Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#111d45;background:#f7f9fd}*{box-sizing:border-box}body{margin:0;background:#f7f9fd;color:#111d45;font-family:Inter,system-ui,sans-serif}.app-shell{min-height:100vh;display:flex}.sidebar{width:260px;flex:0 0 260px;min-height:100vh;background:linear-gradient(165deg,#0753ce,#1768e6 58%,#1260d4);color:white;padding:24px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:auto;z-index:1035}.brand{display:flex;align-items:center;gap:12px;padding:0 12px 28px}.brand-mark{font-size:31px}.brand strong,.brand span{display:block;line-height:1.25}.brand strong{font-size:18px;font-weight:800}.brand span{font-size:16px}.nav-list{display:flex;flex-direction:column;gap:6px}.nav-item{display:flex;align-items:center;gap:14px;padding:12px 15px;color:#f5f8ff;text-decoration:none;border-radius:10px;font-size:14px}.nav-item:hover{background:#ffffff1c;color:white}.nav-item.active{background:white;color:#0758d5;font-weight:700}.nav-item i{font-size:18px}.emergency-sidebar{margin:30px 6px 0;padding:17px 14px;border:1px solid #ffffff38;border-radius:17px;background:#ffffff12;text-align:center}.emergency-sidebar strong{display:block;font-size:38px}.emergency-sidebar small{font-size:12px}.main-area{min-width:0;flex:1}.topbar{height:76px;display:flex;align-items:center;gap:20px;padding:0 26px;background:white;border-bottom:1px solid #e4eaf4;position:sticky;top:0;z-index:1020}.global-search{height:46px;max-width:610px;flex:1;display:flex;align-items:center;gap:11px;padding:0 15px;border:1px solid #dce4f0;background:#fbfcff;border-radius:10px;color:#70809f}.global-search input{width:100%;border:0;outline:0;background:transparent;font-size:14px}.profile{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#d9e9ff;color:#1452a6}.page-content{max-width:1600px;margin:auto;padding:25px}.page-heading{display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}.heading-icon{width:52px;height:52px;border-radius:16px;background:#1670f7;color:white;display:grid;place-items:center;font-size:24px}.page-heading h1{font-size:25px;margin:0 0 4px;font-weight:800}.page-heading p{margin:0;color:#60718f;font-size:14px}.panel{background:white;border:1px solid #e0e8f4;border-radius:15px;box-shadow:0 3px 14px #284a8010;padding:19px;margin-bottom:18px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}.stat{background:white;border:1px solid #e0e8f4;border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;min-width:0}.stat-icon{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:12px;background:#eaf2ff;color:#0968f2;font-size:21px}.stat strong{font-size:23px;display:block}.stat span{font-size:11px;color:#70809b}.panel-title{font-size:16px;font-weight:800;margin-bottom:4px}.muted{font-size:12px;color:#70809b}.form-label{font-size:12px;font-weight:700;color:#344565}.form-control,.form-select{border-color:#dce5f2;border-radius:9px;min-height:43px;font-size:13px}.form-control:focus,.form-select:focus{border-color:#2878ef;box-shadow:0 0 0 .2rem #2878ef20}.btn-primary{background:#0968f2;border-color:#0968f2}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.toolbar .search-wrap{flex:1;min-width:230px;position:relative}.search-wrap i{position:absolute;left:12px;top:13px;color:#8290a7}.search-wrap input{padding-left:35px}.record-list{display:flex;flex-direction:column;gap:11px}.record-card{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:13px;align-items:start;padding:15px;border:1px solid #e4ebf6;border-radius:13px}.record-icon{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:#edf4ff;color:#1768e6;font-size:21px}.record-card h3{font-size:14px;font-weight:800;margin:2px 0 6px}.record-meta{font-size:11px;color:#71809a;line-height:1.7}.record-description{font-size:12px;color:#4c5e7d;margin:7px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}.category-badge{font-size:10px;font-weight:700;border-radius:30px;padding:5px 9px;display:inline-block;background:#edf4ff;color:#1768e6;text-transform:capitalize}.badge-condition{background:#fff3e6;color:#a65a00}.badge-medication{background:#e8f8f0;color:#148451}.badge-allergy{background:#fff0f0;color:#c3343b}.badge-surgery{background:#f1eaff;color:#6d42b7}.badge-visit{background:#e5f7fa;color:#087e8b}.badge-report{background:#eef0f5;color:#57647b}.empty-state{text-align:center;padding:42px 15px;color:#71809a}.empty-state>i{font-size:36px;color:#8aa9d9}.empty-state h3{font-size:15px;color:#26385d;margin:10px 0 6px}.privacy-note{display:flex;gap:12px;align-items:flex-start;padding:14px;background:#f3f7ff;border:1px solid #dfeaff;border-radius:12px;font-size:11px;color:#4c5e7d;line-height:1.6}.privacy-note i{font-size:21px;color:#1768e6}.side-stat{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f7;font-size:12px;color:#526481}.side-stat:last-child{border-bottom:0}.side-stat strong{color:#15264e}.emergency-link{color:#cf343b;text-decoration:none;font-weight:700}.d-none-force{display:none!important}.history-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+@media(max-width:1100px){.sidebar{width:230px;flex-basis:230px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.history-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.app-shell{display:block}.sidebar{position:relative;width:100%;height:auto;min-height:0}.nav-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.emergency-sidebar{display:none}.topbar{padding:0 12px}.profile-copy{display:none}.page-content{padding:14px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{padding:11px}.stat strong{font-size:20px}.record-card{grid-template-columns:42px minmax(0,1fr)}.record-icon{width:40px;height:40px}.record-actions{grid-column:2}.page-heading h1{font-size:22px}}
+@media(max-width:420px){.stats{grid-template-columns:1fr 1fr}.record-card{gap:9px;padding:11px}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+ <div class="brand"><div class="brand-mark"><i class="bi bi-heart-pulse-fill"></i></div><div><strong>AI Healthcare</strong><span>Assistant</span></div></div>
+ <nav class="nav-list" aria-label="Main navigation">
+  <a class="nav-item" href="/"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+  <a class="nav-item" href="/"><i class="bi bi-activity"></i>AI Symptom Checker</a>
+  <a class="nav-item" href="/"><i class="bi bi-file-earmark-medical"></i>Upload Medical Report</a>
+  <a class="nav-item" href="/"><i class="bi bi-radioactive"></i>MRI / X-ray Analysis</a>
+  <a class="nav-item" href="/"><i class="bi bi-chat-dots"></i>AI Health Chatbot</a>
+  <a class="nav-item" href="/"><i class="bi bi-geo-alt-fill"></i>Nearby Hospitals</a>
+  <a class="nav-item" href="/appointments"><i class="bi bi-calendar2-check"></i>Appointments</a>
+  <a class="nav-item active" href="/medical-history"><i class="bi bi-clipboard2-pulse"></i>Medical History</a>
+  <a class="nav-item" href="/emergency-alert"><i class="bi bi-bell"></i>Emergency Alert</a>
+  <a class="nav-item" href="/"><i class="bi bi-person"></i>Profile</a>
+  <a class="nav-item" href="/"><i class="bi bi-gear"></i>Settings</a>
+ </nav>
+ <div class="emergency-sidebar"><i class="bi bi-telephone-fill"></i> Emergency Helpline<strong>108</strong><small>Ambulance Service · 24×7</small></div>
+</aside>
+<main class="main-area">
+<header class="topbar"><div class="global-search"><i class="bi bi-search"></i><input id="globalSearch" type="search" placeholder="Search medical records..." aria-label="Search medical records"></div><div class="profile"><div class="avatar">DP</div><div class="profile-copy">Patient<br><span class="text-secondary fw-normal">Medical records</span></div></div></header>
+<div class="page-content">
+ <section class="page-heading"><div class="heading-icon"><i class="bi bi-clipboard2-pulse"></i></div><div><h1>Medical History</h1><p>Keep your conditions, medications, allergies, visits, and reports organized in one place.</p></div><button class="btn btn-primary ms-auto" id="addRecordTop"><i class="bi bi-plus-lg me-2"></i>Add record</button></section>
+ <section class="stats">
+  <div class="stat"><div class="stat-icon"><i class="bi bi-collection"></i></div><div><strong id="totalCount">0</strong><span>Total records</span></div></div>
+  <div class="stat"><div class="stat-icon" style="background:#fff3e6;color:#a65a00"><i class="bi bi-heart-pulse"></i></div><div><strong id="conditionCount">0</strong><span>Conditions</span></div></div>
+  <div class="stat"><div class="stat-icon" style="background:#e8f8f0;color:#148451"><i class="bi bi-capsule"></i></div><div><strong id="medicationCount">0</strong><span>Medications</span></div></div>
+  <div class="stat"><div class="stat-icon" style="background:#eef0f5;color:#57647b"><i class="bi bi-file-earmark-medical"></i></div><div><strong id="reportCount">0</strong><span>Reports</span></div></div>
+ </section>
+ <section id="recordFormPanel" class="panel d-none-force">
+  <div class="d-flex justify-content-between align-items-start gap-3 mb-3"><div><div class="panel-title"><i class="bi bi-plus-circle text-primary me-2"></i>Add medical record</div><p class="muted mb-0">Enter information from your medical record or clinician.</p></div><button type="button" class="btn-close" id="closeForm" aria-label="Close form"></button></div>
+  <div id="formAlert" class="alert d-none" role="alert"></div>
+  <form id="recordForm"><div class="row g-3">
+   <div class="col-md-4"><label class="form-label" for="category">Record type *</label><select class="form-select" id="category" name="category" required><option value="">Select type</option><option value="condition">Condition / Disease</option><option value="medication">Medication</option><option value="allergy">Allergy</option><option value="surgery">Surgery / Procedure</option><option value="visit">Doctor visit</option><option value="report">Medical report</option></select></div>
+   <div class="col-md-8"><label class="form-label" for="title">Title / name *</label><input class="form-control" id="title" name="title" required minlength="2" maxlength="180" placeholder="e.g. Seasonal allergy, Vitamin D report"></div>
+   <div class="col-md-4"><label class="form-label" for="recordedDate">Record date *</label><input class="form-control" id="recordedDate" name="recorded_date" type="date" required></div>
+   <div class="col-md-4"><label class="form-label" for="provider">Doctor / provider</label><input class="form-control" id="provider" name="provider" maxlength="150" placeholder="Doctor or clinic contact"></div>
+   <div class="col-md-4"><label class="form-label" for="facility">Hospital / facility</label><input class="form-control" id="facility" name="facility" maxlength="180" placeholder="Hospital or lab name"></div>
+   <div class="col-md-4"><label class="form-label" for="status">Status</label><select class="form-select" id="status" name="status"><option>Recorded</option><option>Ongoing</option><option>Resolved</option><option>Taking</option><option>Stopped</option><option>Known allergy</option><option>Completed</option><option>Follow-up needed</option></select></div>
+   <div class="col-12"><label class="form-label" for="description">Details / notes</label><textarea class="form-control" id="description" name="description" rows="3" maxlength="3000" placeholder="Add details such as dosage, reaction, diagnosis, treatment plan, or report summary. Avoid entering information you do not want stored."></textarea></div>
+   <div class="col-12 d-flex justify-content-end gap-2"><button class="btn btn-light border" type="reset">Clear</button><button class="btn btn-primary" type="submit" id="saveRecord"><i class="bi bi-check2-circle me-2"></i>Save record</button></div>
+  </div></form>
+ </section>
+ <div class="history-grid">
+  <section class="panel">
+   <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3"><div><div class="panel-title">Health records</div><p class="muted mb-0">Most recent records appear first.</p></div><button class="btn btn-outline-primary btn-sm" id="refreshRecords"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button></div>
+   <div class="toolbar mb-3"><div class="search-wrap"><i class="bi bi-search"></i><input id="recordSearch" class="form-control" placeholder="Search title, doctor, hospital, notes..."></div><select id="categoryFilter" class="form-select" style="max-width:210px" aria-label="Filter by record type"><option value="all">All record types</option><option value="condition">Conditions</option><option value="medication">Medications</option><option value="allergy">Allergies</option><option value="surgery">Surgeries</option><option value="visit">Doctor visits</option><option value="report">Medical reports</option></select></div>
+   <div id="recordsList" class="record-list"><div class="empty-state"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading medical records...</p></div></div>
+  </section>
+  <aside>
+   <section class="panel"><div class="panel-title"><i class="bi bi-list-check text-primary me-2"></i>Record overview</div><p class="muted">Records currently saved</p>
+    <div class="side-stat"><span><i class="bi bi-heart-pulse me-2"></i>Conditions</span><strong id="sideConditions">0</strong></div>
+    <div class="side-stat"><span><i class="bi bi-capsule me-2"></i>Medications</span><strong id="sideMedications">0</strong></div>
+    <div class="side-stat"><span><i class="bi bi-exclamation-triangle me-2"></i>Allergies</span><strong id="sideAllergies">0</strong></div>
+    <div class="side-stat"><span><i class="bi bi-scissors me-2"></i>Surgeries</span><strong id="sideSurgeries">0</strong></div>
+    <div class="side-stat"><span><i class="bi bi-file-earmark-medical me-2"></i>Reports</span><strong id="sideReports">0</strong></div>
+   </section>
+   <section class="panel"><div class="panel-title"><i class="bi bi-shield-lock text-primary me-2"></i>Privacy reminder</div><div class="privacy-note mt-3"><i class="bi bi-info-circle"></i><div>This student-project prototype stores records in a local SQLite database. It does not yet include sign-in, encryption, access controls, or file uploads. Use sample information for demos and do not store sensitive real patient data until security is implemented.</div></div></section>
+   <section class="panel"><div class="panel-title"><i class="bi bi-calendar2-check text-primary me-2"></i>Need a consultation?</div><p class="muted mt-2">Book a visit and keep appointment details separately from your medical records.</p><a href="/appointments" class="btn btn-outline-primary w-100"><i class="bi bi-calendar-plus me-2"></i>Open appointments</a></section>
+  </aside>
+ </div>
+ <footer class="small text-secondary d-flex justify-content-between gap-3 mt-3"><span>AI Healthcare Assistant · Medical History</span><span>Use clinician-provided information for medical decisions.</span></footer>
+</div>
+</main>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+
+// Computed on demand so it stays correct if the page is left open past midnight.
+function getLocalDate() {
+ const d = new Date();
+ return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function resetDateField() {
+ $('recordedDate').max = getLocalDate();   // matches the server rule: no future dates
+ $('recordedDate').value = getLocalDate();
+}
+resetDateField();
+
+function escapeHtml(value) {
+ return String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+const categoryLabels = { condition: 'Condition', medication: 'Medication', allergy: 'Allergy', surgery: 'Surgery / Procedure', visit: 'Doctor Visit', report: 'Medical Report' };
+const categoryIcons = { condition: 'bi-heart-pulse', medication: 'bi-capsule', allergy: 'bi-exclamation-triangle', surgery: 'bi-bandaid', visit: 'bi-hospital', report: 'bi-file-earmark-medical' };
+let allRecords = [];
+
+function openForm() {
+ hideFormAlert();
+ $('recordFormPanel').classList.remove('d-none-force');
+ $('recordFormPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+ $('category').focus();
+}
+function closeForm() { $('recordFormPanel').classList.add('d-none-force'); hideFormAlert(); }
+function showFormAlert(message, kind = 'success') {
+ const el = $('formAlert');
+ el.className = `alert alert-${kind}`;
+ el.textContent = message;
+ el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function hideFormAlert() { $('formAlert').className = 'alert d-none'; }
+function formatDate(value) {
+ const d = new Date(`${value}T00:00:00`);
+ return Number.isNaN(d.valueOf()) ? value : d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+async function readResponse(response) {
+ let data = {};
+ try { data = await response.json(); } catch {}
+ if (!response.ok) {
+  const d = data.detail;
+  let msg;
+  if (typeof d === 'string') msg = d;
+  // FastAPI validation errors (HTTP 422) arrive as a list of {msg, loc, ...}.
+  else if (Array.isArray(d) && d.length) msg = d.map(x => String(x.msg || '').replace(/^Value error, /, '')).filter(Boolean).join(' ');
+  else msg = d?.message || `Request failed (HTTP ${response.status}).`;
+  throw new Error(msg);
+ }
+ return data;
+}
+
+function updateStats(summary) {
+ const count = cat => Number(summary[cat] || 0);
+ $('totalCount').textContent = Object.values(summary).reduce((a, b) => a + Number(b || 0), 0);
+ $('conditionCount').textContent = count('condition');
+ $('medicationCount').textContent = count('medication');
+ $('reportCount').textContent = count('report');
+ $('sideConditions').textContent = count('condition');
+ $('sideMedications').textContent = count('medication');
+ $('sideAllergies').textContent = count('allergy');
+ $('sideSurgeries').textContent = count('surgery');
+ $('sideReports').textContent = count('report');
+}
+
+function renderRecords() {
+ const queries = [$('recordSearch').value, $('globalSearch').value].map(v => v.trim().toLowerCase()).filter(Boolean);
+ const category = $('categoryFilter').value;
+ const records = allRecords.filter(r =>
+  (category === 'all' || r.category === category) &&
+  queries.every(q => [r.title, r.description, r.provider, r.facility, r.status, categoryLabels[r.category]].join(' ').toLowerCase().includes(q))
+ );
+
+ if (!records.length) {
+  $('recordsList').innerHTML = `<div class="empty-state"><i class="bi bi-clipboard2-x"></i><h3>No medical records found</h3><p>${allRecords.length ? 'Try another search or category.' : 'Add your first record to start building your medical history.'}</p><button class="btn btn-primary btn-sm" id="emptyAddButton"><i class="bi bi-plus-lg me-1"></i>Add record</button></div>`;
+  $('emptyAddButton')?.addEventListener('click', openForm);
+  return;
+ }
+
+ $('recordsList').innerHTML = records.map(r => `<article class="record-card">
+  <div class="record-icon"><i class="bi ${categoryIcons[r.category] || 'bi-file-medical'}"></i></div>
+  <div>
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-1"><span class="category-badge badge-${escapeHtml(r.category)}">${escapeHtml(categoryLabels[r.category] || r.category)}</span><span class="muted">${escapeHtml(formatDate(r.recorded_date))}</span></div>
+   <h3>${escapeHtml(r.title)}</h3>
+   <div class="record-meta">${r.provider ? `<span><i class="bi bi-person-badge me-1"></i>${escapeHtml(r.provider)}</span>` : ''}${r.facility ? `<span> &nbsp;·&nbsp; <i class="bi bi-hospital me-1"></i>${escapeHtml(r.facility)}</span>` : ''}<br><span><i class="bi bi-info-circle me-1"></i>${escapeHtml(r.status || 'Recorded')}</span></div>
+   ${r.description ? `<p class="record-description">${escapeHtml(r.description)}</p>` : ''}
+  </div>
+  <div class="record-actions"><button class="btn btn-outline-danger btn-sm" data-delete-id="${Number(r.id)}" title="Delete record"><i class="bi bi-trash3 me-1"></i>Delete</button></div>
+ </article>`).join('');
+
+ $('recordsList').querySelectorAll('[data-delete-id]').forEach(btn => btn.addEventListener('click', async () => {
+  if (!confirm('Delete this medical history record permanently?')) return;
+  btn.disabled = true;
+  try {
+   await readResponse(await fetch(`/api/medical-history/${btn.dataset.deleteId}`, { method: 'DELETE' }));
+   await loadRecords();
+  } catch (e) {
+   alert(e.message);
+   btn.disabled = false;
+  }
+ }));
+}
+
+async function loadRecords() {
+ $('recordsList').innerHTML = '<div class="empty-state"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading medical records...</p></div>';
+ try {
+  const data = await readResponse(await fetch('/api/medical-history'));
+  allRecords = data.records || [];
+  updateStats(data.summary || {});
+  renderRecords();
+ } catch (e) {
+  console.error(e);
+  $('recordsList').innerHTML = `<div class="empty-state"><i class="bi bi-exclamation-circle"></i><h3>Could not load records</h3><p>${escapeHtml(e.message)}</p><button class="btn btn-outline-primary btn-sm" id="retryLoad">Try again</button></div>`;
+  $('retryLoad')?.addEventListener('click', loadRecords);
+ }
+}
+
+$('addRecordTop').addEventListener('click', openForm);
+$('closeForm').addEventListener('click', closeForm);
+$('recordSearch').addEventListener('input', renderRecords);
+$('globalSearch').addEventListener('input', renderRecords);
+$('categoryFilter').addEventListener('change', renderRecords);
+$('refreshRecords').addEventListener('click', loadRecords);
+$('recordForm').addEventListener('reset', () => setTimeout(() => { resetDateField(); hideFormAlert(); }, 0));
+
+$('recordForm').addEventListener('submit', async event => {
+ event.preventDefault();
+ hideFormAlert();
+ const form = event.currentTarget;
+ const payload = Object.fromEntries(new FormData(form).entries());
+ $('saveRecord').disabled = true;
+ $('saveRecord').innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+ try {
+  const data = await readResponse(await fetch('/api/medical-history', {
+   method: 'POST',
+   headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+   body: JSON.stringify(payload)
+  }));
+  form.reset();
+  resetDateField();
+  showFormAlert(data.message || 'Record saved successfully.', 'success');
+  await loadRecords();
+ } catch (e) {
+  showFormAlert(e.message || 'Could not save record.', 'danger');
+ } finally {
+  $('saveRecord').disabled = false;
+  $('saveRecord').innerHTML = '<i class="bi bi-check2-circle me-2"></i>Save record';
+ }
+});
+
+loadRecords();
+</script>
+</body>
+</html>

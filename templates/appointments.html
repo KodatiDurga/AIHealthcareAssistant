@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appointments | AI Healthcare Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#111d45;background:#f7f9fd}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fd;color:#111d45;font-family:Inter,system-ui,sans-serif}
+.app-shell{min-height:100vh;display:flex}.sidebar{width:260px;flex:0 0 260px;min-height:100vh;background:linear-gradient(165deg,#0753ce,#1768e6 58%,#1260d4);color:white;padding:24px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:auto;z-index:1035}
+.brand{display:flex;align-items:center;gap:12px;padding:0 12px 28px}.brand-mark{font-size:31px}.brand strong,.brand span{display:block;line-height:1.25}.brand strong{font-size:18px;font-weight:800}.brand span{font-size:16px}
+.nav-list{display:flex;flex-direction:column;gap:6px}.nav-item{display:flex;align-items:center;gap:14px;padding:12px 15px;color:#f5f8ff;text-decoration:none;border-radius:10px;font-size:14px}.nav-item:hover{background:#ffffff1c;color:white}.nav-item.active{background:white;color:#0758d5;font-weight:700}.nav-item i{font-size:18px}
+.emergency-sidebar{margin:30px 6px 0;padding:17px 14px;border:1px solid #ffffff38;border-radius:17px;background:#ffffff12;text-align:center}.emergency-sidebar strong{display:block;font-size:38px}.emergency-sidebar small{font-size:12px}
+.main-area{min-width:0;flex:1}.topbar{height:76px;display:flex;align-items:center;gap:20px;padding:0 26px;background:white;border-bottom:1px solid #e4eaf4;position:sticky;top:0;z-index:1020}
+.global-search{height:46px;max-width:610px;flex:1;display:flex;align-items:center;gap:11px;padding:0 15px;border:1px solid #dce4f0;background:#fbfcff;border-radius:10px;color:#70809f}.global-search input{width:100%;border:0;outline:0;background:transparent;font-size:14px}
+.profile{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#d9e9ff;color:#1452a6}
+.page-content{max-width:1500px;margin:auto;padding:25px}.page-heading{display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}.heading-icon{width:52px;height:52px;border-radius:16px;background:#1670f7;color:white;display:grid;place-items:center;font-size:24px}.page-heading h1{font-size:25px;margin:0 0 4px;font-weight:800}.page-heading p{margin:0;color:#60718f;font-size:14px}
+.panel{background:white;border:1px solid #e0e8f4;border-radius:15px;box-shadow:0 3px 14px #284a8010;padding:20px;margin-bottom:18px}.panel-title{font-size:17px;font-weight:750;margin-bottom:5px}.muted{font-size:12px;color:#70809b}.form-label{font-size:12px;font-weight:700;color:#344565}.form-control,.form-select{border-color:#dce5f2;border-radius:9px;min-height:43px;font-size:13px}.form-control:focus,.form-select:focus{border-color:#2878ef;box-shadow:0 0 0 .2rem #2878ef20}
+.btn-primary{background:#0968f2;border-color:#0968f2}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}.stat{background:white;border:1px solid #e0e8f4;border-radius:14px;padding:16px;display:flex;align-items:center;gap:13px}.stat-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#eaf2ff;color:#0968f2;font-size:21px}.stat strong{font-size:22px;display:block}.stat span{font-size:11px;color:#70809b}
+.appointment-card{border:1px solid #e3ebf7;border-radius:12px;padding:15px;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:13px;align-items:center;margin-top:10px}.doctor-icon{height:54px;width:54px;display:grid;place-items:center;border-radius:13px;background:#eaf2ff;color:#0968f2;font-size:25px}.appointment-card h3{font-size:14px;font-weight:750;margin:0 0 5px}.appointment-meta{font-size:11px;color:#647593;line-height:1.7}.status{display:inline-block;border-radius:30px;padding:5px 9px;background:#e7f8ef;color:#168455;font-size:10px;font-weight:700}.status.cancelled{background:#eef1f6;color:#6b7a93}.appointment-card.is-cancelled{opacity:.7}.empty-state{text-align:center;padding:38px 15px;color:#71809a}.empty-state i{font-size:34px;color:#8aa9d9}.empty-state h3{font-size:15px;color:#26385d;margin:10px 0 6px}
+@media(max-width:1000px){.sidebar{width:230px;flex-basis:230px}.page-content{padding:18px}}
+@media(max-width:760px){.app-shell{display:block}.sidebar{position:relative;width:100%;height:auto;min-height:0}.nav-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.emergency-sidebar{display:none}.topbar{padding:0 12px}.profile-copy{display:none}.stats{grid-template-columns:1fr}.appointment-card{grid-template-columns:48px minmax(0,1fr)}.appointment-card .actions{grid-column:1/-1;display:flex;justify-content:flex-end}.page-content{padding:14px}.page-heading h1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+ <div class="brand"><div class="brand-mark"><i class="bi bi-heart-pulse-fill"></i></div><div><strong>AI Healthcare</strong><span>Assistant</span></div></div>
+ <nav class="nav-list" aria-label="Main navigation">
+  <a class="nav-item" href="/"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+  <a class="nav-item" href="/"><i class="bi bi-activity"></i>AI Symptom Checker</a>
+  <a class="nav-item" href="/"><i class="bi bi-file-earmark-medical"></i>Upload Medical Report</a>
+  <a class="nav-item" href="/"><i class="bi bi-brain"></i>MRI / X-ray Analysis</a>
+  <a class="nav-item" href="/"><i class="bi bi-chat-dots"></i>AI Health Chatbot</a>
+  <a class="nav-item" href="/"><i class="bi bi-geo-alt-fill"></i>Nearby Hospitals</a>
+  <a class="nav-item active" href="/appointments"><i class="bi bi-calendar2-check"></i>Appointments</a>
+  <a class="nav-item" href="/medical-history"><i class="bi bi-clipboard2-pulse"></i>Medical History</a>
+  <a class="nav-item" href="/emergency-alert"><i class="bi bi-bell"></i>Emergency Alert</a>
+  <a class="nav-item" href="/"><i class="bi bi-person"></i>Profile</a>
+  <a class="nav-item" href="/"><i class="bi bi-gear"></i>Settings</a>
+ </nav>
+ <div class="emergency-sidebar"><i class="bi bi-telephone-fill"></i> Emergency Helpline<strong>108</strong><small>Ambulance Service · 24×7</small></div>
+</aside>
+<main class="main-area">
+<header class="topbar"><div class="global-search"><i class="bi bi-search"></i><input id="searchAppointments" type="search" placeholder="Search appointments or doctors..." aria-label="Search appointments"></div><div class="profile"><div class="avatar">DP</div><div class="profile-copy">Durga Prasad<br><span class="text-secondary fw-normal">Patient</span></div></div></header>
+<div class="page-content">
+ <section class="page-heading"><div class="heading-icon"><i class="bi bi-calendar2-check"></i></div><div><h1>Appointments</h1><p>Book a visit, manage your upcoming appointments, and keep your care organized.</p></div></section>
+ <section class="stats">
+  <div class="stat"><div class="stat-icon"><i class="bi bi-calendar-check"></i></div><div><strong id="upcomingCount">0</strong><span>Upcoming appointments</span></div></div>
+  <div class="stat"><div class="stat-icon"><i class="bi bi-clock-history"></i></div><div><strong id="todayCount">0</strong><span>Appointments today</span></div></div>
+  <div class="stat"><div class="stat-icon"><i class="bi bi-person-badge"></i></div><div><strong id="doctorCount">0</strong><span>Doctors booked</span></div></div>
+ </section>
+ <section class="panel">
+  <div class="panel-title"><i class="bi bi-plus-circle text-primary me-2"></i>Book a new appointment</div>
+  <p class="muted mb-4">Choose a hospital from Nearby Hospitals, then complete the appointment details. You can also enter a hospital manually.</p>
+  <div id="formAlert" class="alert d-none" role="alert"></div>
+  <div id="selectedHospitalNotice" class="alert alert-primary d-none" role="status"><i class="bi bi-hospital me-2"></i><strong>Hospital selected from Nearby Hospitals</strong><div id="selectedHospitalSummary" class="small mt-1"></div></div>
+  <form id="appointmentForm">
+   <div class="row g-3">
+    <div class="col-12"><label class="form-label" for="hospitalName">Hospital / clinic name *</label><input class="form-control" id="hospitalName" name="hospital_name" required minlength="2" maxlength="180" placeholder="Choose a hospital from Nearby Hospitals or enter its name"></div>
+    <div class="col-md-8"><label class="form-label" for="hospitalAddress">Hospital address</label><input class="form-control" id="hospitalAddress" name="hospital_address" maxlength="500" placeholder="Hospital address"></div>
+    <input type="hidden" id="hospitalLat" name="hospital_lat"><input type="hidden" id="hospitalLon" name="hospital_lon">
+    <div class="col-md-4 d-flex align-items-end"><a class="btn btn-outline-primary w-100" href="/"><i class="bi bi-map me-2"></i>Choose from map</a></div>
+    <div class="col-md-6"><label class="form-label" for="patientName">Patient name *</label><input class="form-control" id="patientName" name="patient_name" required minlength="2" maxlength="100" placeholder="Enter full name"></div>
+    <div class="col-md-6"><label class="form-label" for="patientEmail">Email address *</label><input class="form-control" id="patientEmail" name="patient_email" type="email" required maxlength="160" placeholder="you@example.com"></div>
+    <div class="col-md-6"><label class="form-label" for="patientPhone">Phone number *</label><input class="form-control" id="patientPhone" name="patient_phone" type="tel" required minlength="7" maxlength="25" pattern="[0-9+()\-\s]{7,25}" title="Digits, spaces, +, - and parentheses only" placeholder="Enter contact number"></div>
+    <div class="col-md-6"><label class="form-label" for="specialty">Specialty *</label><select class="form-select" id="specialty" name="specialty" required><option value="">Select specialty</option><option>General Physician</option><option>Cardiology</option><option>Dermatology</option><option>ENT</option><option>Gynecology</option><option>Neurology</option><option>Orthopedics</option><option>Pediatrics</option><option>Psychiatry</option><option>Dental</option><option>Ophthalmology</option><option>Other</option></select></div>
+    <div class="col-md-6"><label class="form-label" for="doctorName">Doctor name *</label><input class="form-control" id="doctorName" name="doctor_name" required minlength="2" maxlength="100" placeholder="Doctor's name"></div>
+    <div class="col-md-6"><label class="form-label" for="appointmentDate">Appointment date *</label><input class="form-control" id="appointmentDate" name="appointment_date" type="date" required></div>
+    <div class="col-md-6"><label class="form-label" for="appointmentTime">Appointment time *</label><select class="form-select" id="appointmentTime" name="appointment_time" required><option value="">Select time</option><option value="09:00">09:00 AM</option><option value="09:30">09:30 AM</option><option value="10:00">10:00 AM</option><option value="10:30">10:30 AM</option><option value="11:00">11:00 AM</option><option value="11:30">11:30 AM</option><option value="12:00">12:00 PM</option><option value="12:30">12:30 PM</option><option value="14:00">02:00 PM</option><option value="14:30">02:30 PM</option><option value="15:00">03:00 PM</option><option value="15:30">03:30 PM</option><option value="16:00">04:00 PM</option><option value="16:30">04:30 PM</option></select></div>
+    <div class="col-12"><label class="form-label" for="reason">Reason for visit</label><textarea class="form-control" id="reason" name="reason" rows="3" maxlength="1000" placeholder="Briefly describe the reason for the appointment (optional)"></textarea></div>
+    <div class="col-12 d-flex flex-wrap gap-2 justify-content-end"><button type="reset" class="btn btn-light border">Clear form</button><button type="submit" id="bookButton" class="btn btn-primary px-4"><i class="bi bi-calendar2-plus me-2"></i>Book appointment</button></div>
+   </div>
+  </form>
+ </section>
+ <section class="panel">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><div><div class="panel-title mb-1">Your appointments</div><p class="muted mb-0">Upcoming visits saved to this application.</p></div><button class="btn btn-outline-primary btn-sm" id="refreshButton"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button></div>
+  <div id="appointmentsList"><div class="empty-state"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading appointments...</p></div></div>
+ </section>
+ <footer class="small text-secondary d-flex justify-content-between gap-3 mt-3"><span>AI Healthcare Assistant · Appointments</span><span>Demo application — confirm appointments directly with the clinic.</span></footer>
+</div>
+</main>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+let allAppointments = [];
+
+// Computed on demand so it stays correct if the page is left open past midnight.
+function getLocalDate() {
+ const d = new Date();
+ return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function getLocalTime() {
+ const d = new Date();
+ return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+function setMinDate() { $('appointmentDate').min = getLocalDate(); }
+setMinDate();
+
+// Hospital chosen on the Nearby Hospitals page.
+const params = new URLSearchParams(window.location.search);
+const selected = {
+ name: params.get('hospital') || '',
+ address: params.get('address') || '',
+ lat: params.get('lat') || '',
+ lon: params.get('lon') || ''
+};
+function applySelectedHospital() {
+ if (!selected.name) return;
+ $('hospitalName').value = selected.name;
+ $('hospitalAddress').value = selected.address;
+ $('hospitalLat').value = selected.lat;
+ $('hospitalLon').value = selected.lon;
+}
+if (selected.name) {
+ applySelectedHospital();
+ $('selectedHospitalSummary').textContent = selected.address ? `${selected.name} — ${selected.address}` : selected.name;
+ $('selectedHospitalNotice').classList.remove('d-none');
+}
+// If the user edits the hospital by hand, the saved coordinates no longer apply.
+$('hospitalName').addEventListener('input', () => {
+ if ($('hospitalName').value.trim() !== selected.name) {
+  $('hospitalLat').value = '';
+  $('hospitalLon').value = '';
+  $('selectedHospitalNotice').classList.add('d-none');
+ } else if (selected.name) {
+  applySelectedHospital();
+  $('selectedHospitalNotice').classList.remove('d-none');
+ }
+});
+
+function escapeHtml(value) {
+ return String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function showAlert(message, kind = 'success') {
+ const el = $('formAlert');
+ el.className = `alert alert-${kind}`;
+ el.textContent = message;
+ el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function hideAlert() { $('formAlert').className = 'alert d-none'; }
+function formatDate(value) {
+ const date = new Date(`${value}T00:00:00`);
+ return date.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+}
+function formatTime(value) {
+ const [hour, minute] = value.split(':').map(Number);
+ const date = new Date();
+ date.setHours(hour, minute, 0, 0);
+ return date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+}
+async function responseJson(response) {
+ let data = {};
+ try { data = await response.json(); } catch {}
+ if (!response.ok) {
+  const detail = data.detail;
+  let message;
+  if (typeof detail === 'string') message = detail;
+  // FastAPI validation errors (HTTP 422) arrive as a list of {msg, loc, ...}.
+  else if (Array.isArray(detail) && detail.length) message = detail.map(d => String(d.msg || '').replace(/^Value error, /, '')).filter(Boolean).join(' ');
+  else message = detail?.message || `Request failed (HTTP ${response.status}).`;
+  throw new Error(message);
+ }
+ return data;
+}
+
+function updateStats() {
+ const today = getLocalDate();
+ const upcoming = allAppointments.filter(a => a.appointment_date >= today && a.status !== 'Cancelled');
+ $('upcomingCount').textContent = upcoming.length;
+ $('todayCount').textContent = upcoming.filter(a => a.appointment_date === today).length;
+ $('doctorCount').textContent = new Set(upcoming.map(a => a.doctor_name.toLowerCase())).size;
+}
+
+async function loadAppointments() {
+ const container = $('appointmentsList');
+ container.innerHTML = '<div class="empty-state"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading appointments...</p></div>';
+ try {
+  const data = await responseJson(await fetch('/api/appointments'));
+  allAppointments = data.appointments || [];
+  updateStats();
+  renderAppointments();
+ } catch (error) {
+  container.innerHTML = `<div class="empty-state"><i class="bi bi-exclamation-circle"></i><h3>Could not load appointments</h3><p>${escapeHtml(error.message)}</p><button class="btn btn-outline-primary btn-sm" id="retryAppointments">Try again</button></div>`;
+  $('retryAppointments')?.addEventListener('click', loadAppointments);
+ }
+}
+
+// Searching filters the already-loaded list; it does not refetch from the server.
+function renderAppointments() {
+ const query = $('searchAppointments').value.trim().toLowerCase();
+ const filtered = allAppointments.filter(a => !query || [a.patient_name, a.doctor_name, a.specialty, a.hospital_name, a.hospital_address, a.appointment_date, a.status].join(' ').toLowerCase().includes(query));
+ if (!filtered.length) {
+  $('appointmentsList').innerHTML = `<div class="empty-state"><i class="bi bi-calendar2-x"></i><h3>No appointments found</h3><p>${query ? 'Try a different search.' : 'Book a new appointment using the form above.'}</p></div>`;
+  return;
+ }
+ $('appointmentsList').innerHTML = filtered.map(a => {
+  const cancelled = a.status === 'Cancelled';
+  return `
+  <article class="appointment-card ${cancelled ? 'is-cancelled' : ''}">
+   <div class="doctor-icon"><i class="bi bi-person-vcard"></i></div>
+   <div>
+    <h3>${escapeHtml(a.doctor_name)} <span class="status ${cancelled ? 'cancelled' : ''} ms-1">${escapeHtml(a.status)}</span></h3>
+    <div class="appointment-meta">
+     <i class="bi bi-hospital me-1"></i><strong>${escapeHtml(a.hospital_name || 'Hospital not specified')}</strong>${a.hospital_address ? ` — ${escapeHtml(a.hospital_address)}` : ''}<br>
+     <i class="bi bi-heart-pulse me-1"></i>${escapeHtml(a.specialty)}
+     &nbsp;·&nbsp; <i class="bi bi-calendar3 me-1"></i>${escapeHtml(formatDate(a.appointment_date))}
+     &nbsp;·&nbsp; <i class="bi bi-clock me-1"></i>${escapeHtml(formatTime(a.appointment_time))}<br>
+     <i class="bi bi-person me-1"></i>${escapeHtml(a.patient_name)}
+     ${a.reason ? `<br><i class="bi bi-chat-left-text me-1"></i>${escapeHtml(a.reason)}` : ''}
+    </div>
+   </div>
+   <div class="actions">${cancelled ? '' : `<button class="btn btn-outline-danger btn-sm" data-cancel-id="${a.id}"><i class="bi bi-x-circle me-1"></i>Cancel</button>`}</div>
+  </article>`;
+ }).join('');
+
+ $('appointmentsList').querySelectorAll('[data-cancel-id]').forEach(button => button.addEventListener('click', async () => {
+  if (!confirm('Cancel this appointment?')) return;
+  button.disabled = true;
+  try {
+   await responseJson(await fetch(`/api/appointments/${button.dataset.cancelId}/cancel`, { method: 'PATCH' }));
+   showAlert('Appointment cancelled.', 'info');
+   await loadAppointments();
+  } catch (error) {
+   showAlert(error.message, 'danger');
+   button.disabled = false;
+  }
+ }));
+}
+
+$('appointmentForm').addEventListener('submit', async event => {
+ event.preventDefault();
+ hideAlert();
+ setMinDate();
+ const form = event.currentTarget;
+ const payload = Object.fromEntries(new FormData(form).entries());
+ payload.hospital_lat = payload.hospital_lat.trim() && Number.isFinite(Number(payload.hospital_lat)) ? Number(payload.hospital_lat) : null;
+ payload.hospital_lon = payload.hospital_lon.trim() && Number.isFinite(Number(payload.hospital_lon)) ? Number(payload.hospital_lon) : null;
+
+ // Friendly client-side check; the server enforces the same rule.
+ if (payload.appointment_date === getLocalDate() && payload.appointment_time <= getLocalTime()) {
+  showAlert('Choose a time later today, or pick another date.', 'warning');
+  return;
+ }
+
+ $('bookButton').disabled = true;
+ $('bookButton').innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Booking...';
+ try {
+  const response = await fetch('/api/appointments', {
+   method: 'POST',
+   headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+   body: JSON.stringify(payload)
+  });
+  const data = await responseJson(response);
+  form.reset();
+  setMinDate();
+  showAlert(data.message || 'Appointment booked successfully.');
+  await loadAppointments();
+ } catch (error) {
+  showAlert(error.message || 'Could not book appointment.', 'danger');
+ } finally {
+  $('bookButton').disabled = false;
+  $('bookButton').innerHTML = '<i class="bi bi-calendar2-plus me-2"></i>Book appointment';
+ }
+});
+
+$('searchAppointments').addEventListener('input', renderAppointments);
+$('refreshButton').addEventListener('click', loadAppointments);
+$('appointmentForm').addEventListener('reset', () => {
+ setTimeout(() => {
+  hideAlert();
+  applySelectedHospital();
+ }, 0);
+});
+loadAppointments();
+</script>
+</body>
+</html>

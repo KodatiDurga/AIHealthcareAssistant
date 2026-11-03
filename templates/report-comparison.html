@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medical Report Comparison | AI Healthcare Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root{font-family:Inter,Arial,sans-serif;color:#182846;background:#f5f8fc;--blue:#2162d5;--border:#e3eaf4;--muted:#74819a}
+    *{box-sizing:border-box}body{margin:0}.shell{display:flex;min-height:100vh}.sidebar{width:235px;flex:0 0 235px;background:linear-gradient(180deg,#1d5dd1,#3074e2);color:#fff;padding:23px 14px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;margin:0 8px 27px;color:#fff;text-decoration:none}.brand-icon{width:36px;height:36px;border-radius:11px;background:#ffffff2b;display:grid;place-items:center;font-size:21px}.brand strong{font-size:14px}.brand small{display:block;margin-top:3px;color:#dbeafe}.nav-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#d8e6ffb8;padding:8px 10px}.nav a{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:9px;color:#fff;text-decoration:none;font-size:12px;margin:3px 0}.nav a:hover,.nav a.active{background:#fff;color:#2162d5;font-weight:700}.spacer{flex:1}.side-note{font-size:10px;color:#dbeafe;text-align:center;padding:15px 4px}.main{min-width:0;flex:1}.top{height:68px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:12px}.top .crumb{font-size:12px;color:var(--muted)}.content{max-width:1180px;margin:auto;padding:27px}.title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:20px}h1{font-size:22px;margin:0 0 7px}h2{font-size:15px;margin:0 0 14px}.sub{color:var(--muted);font-size:12px;line-height:1.6}.card{background:#fff;border:1px solid var(--border);border-radius:15px;padding:20px;margin-bottom:16px;box-shadow:0 4px 15px #213b6308}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}.field select{width:100%;padding:12px;border:1px solid #ced8e7;border-radius:9px;background:#fff;color:#182846}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.btn{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:11px 15px;font-weight:700;cursor:pointer}.btn.secondary{background:#edf4ff;color:#2458a8}.btn:disabled{opacity:.55;cursor:not-allowed}.status{min-height:22px;color:#53627a;font-size:12px;margin-top:12px;white-space:pre-wrap}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #edf1f6;white-space:nowrap}th{color:#65738b;background:#f8fafd}.pill{display:inline-block;padding:5px 8px;border-radius:20px;font-size:10px;font-weight:700;background:#eef2f7;color:#59677d}.pill.ok{background:#e4f7ed;color:#218358}.pill.bad{background:#fff0e0;color:#aa6500}.summary{background:#f5f9ff;border:1px solid #e1ebfa;padding:14px;border-radius:10px;font-size:12px;line-height:1.7}.empty{padding:24px;border-radius:10px;background:#f8fafc;color:var(--muted);text-align:center;font-size:12px}.hint{font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px}.menu{display:none}.footer{color:#99a4b5;text-align:center;font-size:10px;margin:22px 0}
+    @media(max-width:800px){.sidebar{position:fixed;z-index:10;inset:0 auto 0 0;transform:translateX(-105%);transition:.2s;box-shadow:10px 0 35px #15335a33}.sidebar.open{transform:translateX(0)}.menu{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--border);background:#fff;border-radius:8px}.top{padding:0 14px}.content{padding:18px 14px}.grid{grid-template-columns:1fr}.title-row{display:block}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/"><span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span><span><strong>AI Healthcare</strong><small>Assistant</small></span></a>
+    <div class="nav-label">Workspace</div>
+    <nav class="nav">
+      <a href="/"><i class="bi bi-house"></i> Dashboard</a>
+      <a href="/upload-medical-report"><i class="bi bi-file-earmark-medical"></i> Upload Medical Report</a>
+      <a href="/medical-history"><i class="bi bi-clipboard2-pulse"></i> Medical History</a>
+      <a class="active" href="/report-comparison"><i class="bi bi-arrow-left-right"></i> Report Comparison</a>
+      <a href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
+      <a href="/emergency-alert"><i class="bi bi-shield-exclamation"></i> Emergency Alert</a>
+    </nav>
+    <div class="spacer"></div><div class="side-note">For information and record organization only.<br>Not a medical diagnosis.</div>
+  </aside>
+  <main class="main">
+    <header class="top"><button class="menu" id="menu" aria-label="Open menu"><i class="bi bi-list"></i></button><span class="crumb">Dashboard / Medical Reports / Comparison</span></header>
+    <div class="content">
+      <div class="title-row"><div><h1>Medical Report Comparison</h1><div class="sub">Analyze saved reports and compare matching laboratory results from an earlier report with a newer report.</div></div><button class="btn secondary" id="refresh"><i class="bi bi-arrow-clockwise"></i> Refresh reports</button></div>
+      <section class="card">
+        <h2><i class="bi bi-files"></i> Select reports</h2>
+        <div class="grid">
+          <div class="field"><label for="previous">Previous report</label><select id="previous"><option value="">Loading reports…</option></select></div>
+          <div class="field"><label for="latest">Latest report</label><select id="latest"><option value="">Loading reports…</option></select></div>
+        </div>
+        <div class="actions"><button class="btn" id="compare"><i class="bi bi-arrow-left-right"></i> Compare selected reports</button><button class="btn secondary" id="analyzeLatest"><i class="bi bi-cpu"></i> Analyze latest report automatically</button></div>
+        <div class="status" id="formStatus" aria-live="polite"></div>
+        <p class="hint">Only matching laboratory test names with the same units are numerically compared. Different report types (for example, a blood test and a chest X-ray) are analyzed separately. This module does not interpret X-ray, MRI, or CT image pixels.</p>
+      </section>
+      <section class="card" id="resultCard" hidden>
+        <h2>Comparison results</h2>
+        <div id="resultSummary" class="summary"></div>
+        <div id="aiExplanation" class="summary" style="margin-top:10px;display:none"></div>
+        <div class="table-wrap" style="margin-top:14px"><table><thead><tr><th>Test</th><th>Previous</th><th>Latest</th><th>Difference</th><th>Comparison</th></tr></thead><tbody id="resultsBody"></tbody></table></div>
+        <div class="status" id="resultNote"></div>
+      </section>
+      <section class="card">
+        <h2>How this comparison works</h2>
+        <div class="sub">1. Existing PDF is read using text extraction. Scanned PDFs use OCR if Tesseract is installed.<br>2. The service extracts a limited set of common laboratory markers.<br>3. Python compares matching markers and checks unit compatibility.<br>4. The output is a structured comparison, not a disease diagnosis.</div>
+      </section>
+      <div class="footer">AI Healthcare Assistant · Medical information must be reviewed with a qualified healthcare professional.</div>
+    </div>
+  </main>
+</div>
+<script>
+  const previousSelect = document.getElementById('previous');
+  const latestSelect = document.getElementById('latest');
+  const formStatus = document.getElementById('formStatus');
+  const resultCard = document.getElementById('resultCard');
+  const resultsBody = document.getElementById('resultsBody');
+  let reports = [];
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function formatValue(value, unit) {
+    if (value === null || value === undefined) return '—';
+    return `${value} ${unit || ''}`.trim();
+  }
+  async function loadReports() {
+    formStatus.textContent = 'Loading saved reports…';
+    try {
+      const response = await fetch('/api/reports');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || 'Could not load saved reports.');
+      reports = Array.isArray(data.reports) ? data.reports : [];
+      const options = reports.map(r => `<option value="${Number(r.id)}">${escapeHtml(r.title)} — ${escapeHtml(r.original_filename)} (ID ${Number(r.id)})</option>`).join('');
+      previousSelect.innerHTML = '<option value="">Select previous report</option>' + options;
+      latestSelect.innerHTML = '<option value="">Select latest report</option>' + options;
+      if (reports.length >= 2) {
+        previousSelect.value = String(reports[1].id);
+        latestSelect.value = String(reports[0].id);
+      } else if (reports.length === 1) {
+        latestSelect.value = String(reports[0].id);
+      }
+      formStatus.textContent = `${reports.length} saved report(s) found.`;
+    } catch (error) {
+      formStatus.textContent = error.message;
+      previousSelect.innerHTML = latestSelect.innerHTML = '<option value="">Reports unavailable</option>';
+    }
+  }
+  function showComparison(data) {
+    resultCard.hidden = false;
+    document.getElementById('resultSummary').textContent = data.summary || 'No comparison summary available.';
+    const aiBox = document.getElementById('aiExplanation');
+    if (data.ai_explanation) {
+      aiBox.style.display = 'block';
+      aiBox.textContent = 'Optional AI explanation: ' + data.ai_explanation;
+    } else {
+      aiBox.style.display = 'none';
+      aiBox.textContent = '';
+    }
+    document.getElementById('resultNote').textContent = data.note || '';
+    const rows = Array.isArray(data.comparisons) ? data.comparisons : [];
+    resultsBody.innerHTML = rows.length ? rows.map(item => {
+      if (!item.comparable) {
+        return `<tr><td>${escapeHtml(item.test)}</td><td>—</td><td>—</td><td>—</td><td><span class="pill bad">Not comparable</span><div class="hint">${escapeHtml(item.reason || 'Units do not match.')}</div></td></tr>`;
+      }
+      return `<tr><td>${escapeHtml(item.test)}</td><td>${escapeHtml(formatValue(item.previous_value, item.unit))}</td><td>${escapeHtml(formatValue(item.latest_value, item.unit))}</td><td>${escapeHtml(item.difference)} ${escapeHtml(item.unit)}</td><td><span class="pill ${item.direction === 'unchanged' ? '' : 'ok'}">${escapeHtml(item.direction)}</span></td></tr>`;
+    }).join('') : '<tr><td colspan="5"><div class="empty">No matching comparable laboratory values were found. The reports may contain different tests, formats, or units.</div></td></tr>';
+  }
+  document.getElementById('compare').addEventListener('click', async () => {
+    const previousId = Number(previousSelect.value);
+    const latestId = Number(latestSelect.value);
+    if (!previousId || !latestId) { formStatus.textContent = 'Select both reports first.'; return; }
+    if (previousId === latestId) { formStatus.textContent = 'Choose two different reports.'; return; }
+    formStatus.textContent = 'Analyzing and comparing reports…';
+    try {
+      const response = await fetch('/api/report-comparison/compare', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({previous_report_id: previousId, latest_report_id: latestId})
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || 'Comparison failed.');
+      showComparison(data);
+      formStatus.textContent = 'Comparison completed.';
+    } catch (error) { formStatus.textContent = error.message; }
+  });
+  document.getElementById('analyzeLatest').addEventListener('click', async () => {
+    const reportId = Number(latestSelect.value);
+    if (!reportId) { formStatus.textContent = 'Select the latest report first.'; return; }
+    formStatus.textContent = 'Extracting report text and checking previous compatible reports…';
+    try {
+      const response = await fetch(`/api/report-comparison/reports/${reportId}/analyze`, {method:'POST'});
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || 'Analysis failed.');
+      const a = data.analysis;
+      showComparison({summary:a.summary, comparisons:a.comparisons, note:`Report type: ${a.report_type}. Extraction: ${a.extraction_method}. Previous compatible report ID: ${a.previous_report_id ?? 'not found'}.`});
+      formStatus.textContent = `Analysis completed. Extracted ${a.findings.length} supported result(s).`;
+    } catch (error) { formStatus.textContent = error.message; }
+  });
+  document.getElementById('refresh').addEventListener('click', loadReports);
+  document.getElementById('menu').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+  document.addEventListener('click', event => {
+    const side = document.getElementById('sidebar');
+    const menu = document.getElementById('menu');
+    if (window.innerWidth <= 800 && side.classList.contains('open') && !side.contains(event.target) && !menu.contains(event.target)) side.classList.remove('open');
+  });
+  loadReports();
+</script>
+</body>
+</html>
